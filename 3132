@@ -1,0 +1,31 @@
+class Solution {
+    public int minimumAddedInteger(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int c=Integer.MAX_VALUE;
+        for(int i=0;i<nums1.length-1;i++){
+            for(int j=i;j<nums1.length;j++){
+                int k=0,t=0;
+                boolean s=true;
+                 List<Integer> l=new ArrayList<>(); 
+               while(k<nums1.length && t<nums2.length){
+                if(k==i || k==j){
+                    k++;
+                    continue;
+                }
+                   if(l.isEmpty() || l.get(l.size()-1)==(nums2[t]-nums1[k])){
+                    l.add(nums2[t++]-nums1[k++]);
+                   }
+                   else{
+                    s=false;
+                    break;
+                   }
+               }
+               if(s){
+                c=Math.min(c,l.get(0));
+               }
+            }
+        }
+        return c;
+    }
+}
