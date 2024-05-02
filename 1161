@@ -1,0 +1,49 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int maxLevelSum(TreeNode root) {
+        int x=0,m=Integer.MIN_VALUE,s=0;
+        int h=height(root);
+        for(int i=1;i<=h;i++){
+            s=bfs(root,i);
+            if(s>m){
+                m=s;
+                x=i;
+            }
+        }
+        return x;
+    }
+    public int height(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        int l=height(root.left);
+        int r=height(root.right);
+        return Math.max(l,r)+1;
+    }
+   public int bfs(TreeNode root,int i){
+    if(root==null){
+        return 0;
+    }
+    if(i==1){
+        return root.val;
+    }
+    int sum=0;
+     sum+=bfs(root.left,i-1);
+     sum+=bfs(root.right,i-1);
+    return sum;
+   }
+}
