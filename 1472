@@ -1,0 +1,35 @@
+class BrowserHistory {
+    private List<String> history;
+    private int c;
+    public BrowserHistory(String homepage) {
+        history=new ArrayList<>();
+        history.add(homepage);
+        c=0;
+    }
+    
+    public void visit(String url) {
+        while(history.size()>c+1){
+            history.remove(history.size()-1);
+        }
+        history.add(url);
+        c++;
+    }
+    
+    public String back(int steps) {
+        c=Math.max(0,c-steps);
+        return history.get(c);
+    }
+    
+    public String forward(int steps) {
+        c=Math.min(history.size()-1,c+steps);
+        return history.get(c);
+    }
+}
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory obj = new BrowserHistory(homepage);
+ * obj.visit(url);
+ * String param_2 = obj.back(steps);
+ * String param_3 = obj.forward(steps);
+ */
