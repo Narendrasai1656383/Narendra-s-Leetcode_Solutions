@@ -1,0 +1,27 @@
+class Solution {
+    public int trap(int[] height) {
+        if (height == null || height.length == 0) {
+            return 0;
+        } 
+        int l = 0,r = height.length - 1,lm = 0,rm = 0, re = 0;  
+        while (l < r) {
+            if (height[l] < height[r]) {
+                if (height[l] >= lm) {
+                    lm = height[l];
+                } else {
+                    re += lm - height[l];
+                }
+                l++;
+            } 
+            else {
+                if (height[r] >= rm) {
+                    rm = height[r];
+                } else {
+                    re += rm - height[r];
+                }
+                r--;
+            }
+        }
+        return re;
+    }
+}
