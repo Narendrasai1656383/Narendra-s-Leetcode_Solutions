@@ -1,0 +1,23 @@
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> r=new ArrayList<>();
+        Arrays.sort(candidates);
+        csum(r,new ArrayList<>(),candidates,target,0);
+        return r;
+    }
+    public void csum(List<List<Integer>> r,List<Integer> tem,int[] candidates,int target,int l){
+        if(target<0){
+            return ;
+        }
+        else if(target==0){
+            r.add(new ArrayList<>(tem));
+        }
+        else{
+            for(int i=l;i<candidates.length;i++){
+                tem.add(candidates[i]);
+                csum(r,tem,candidates,target-candidates[i],i);
+                tem.remove(tem.size()-1);
+            }
+        }
+    } 
+}
