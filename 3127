@@ -1,0 +1,24 @@
+class Solution {
+    public boolean canMakeSquare(char[][] grid) {
+        return (find(0, 0, grid) || find(0, 1, grid) || find(1, 0, grid) || find(1, 1, grid));
+    }
+
+    public boolean find(int i, int j, char[][] grid) {
+        int rows = grid.length;
+        int cols = grid[0].length;
+        int c = 0;
+        if (i < rows && j < cols && grid[i][j] == 'B') {
+            c++;
+        }
+        if (i + 1 < rows && j < cols && grid[i + 1][j] == 'B') {
+            c++;
+        }
+        if (i + 1 < rows && j + 1 < cols && grid[i + 1][j + 1] == 'B') {
+            c++;
+        }
+        if (i < rows && j + 1 < cols && grid[i][j + 1] == 'B') {
+            c++;
+        }
+        return c == 1 || c == 3 || c == 0 || c == 4;
+    }
+}
