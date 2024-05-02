@@ -1,0 +1,17 @@
+class Solution {
+    public String makeGood(String s) {
+        Stack<Character> a = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (!a.isEmpty() && Math.abs(a.peek() - c) == 32) {
+                a.pop();
+            } else {
+                a.push(c);
+            }
+        }   
+        StringBuilder sb = new StringBuilder();
+        for (char c : a) {
+            sb.append(c);
+        }      
+        return sb.toString();
+    }
+}
