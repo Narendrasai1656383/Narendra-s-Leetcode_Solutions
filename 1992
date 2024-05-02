@@ -1,0 +1,28 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public int[][] findFarmland(int[][] land) {
+        List<int[]> result = new ArrayList<>();
+        for (int i = 0; i < land.length; i++) {
+            for (int j = 0; j < land[0].length; j++) {
+                if (land[i][j] == 1) {
+                    int r2 = i, c2 = j;
+                    while (r2 + 1 < land.length && land[r2 + 1][j] == 1) {
+                        r2++;
+                    }
+                    while (c2 + 1 < land[0].length && land[i][c2 + 1] == 1) {
+                        c2++;
+                    }
+                    result.add(new int[]{i, j, r2, c2});
+                    for (int x = i; x <= r2; x++) {
+                        for (int y = j; y <= c2; y++) {
+                            land[x][y] = 0;
+                        }
+                    }
+                }
+            }
+        }    
+        return result.toArray(new int[result.size()][]);
+    }
+}
