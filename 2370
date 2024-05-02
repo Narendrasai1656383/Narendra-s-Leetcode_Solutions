@@ -1,0 +1,13 @@
+class Solution {
+    public int longestIdealString(String s, int k) {
+       int res=0,n=s.length(),dp[]=new int[150];
+       for(int c=0;c<n;++c){
+       int i=s.charAt(c);
+       for(int j=i-k;j<=i+k;++j){
+        dp[i]=Math.max(dp[i],dp[j]);
+       }
+       res=Math.max(res,++dp[i]);
+       }
+       return res;
+    }
+}
