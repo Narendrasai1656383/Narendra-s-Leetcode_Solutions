@@ -1,0 +1,30 @@
+class Solution {
+    public boolean checkValidString(String s) {
+        Stack<Integer> ls = new Stack<>();
+        Stack<Integer> as = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                ls.push(i);
+            } else if (c == '*') {
+                as.push(i);
+            } else {
+                if (!ls.isEmpty()) {
+                    ls.pop();
+                } else if (!as.isEmpty()) {
+                    as.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+        while (!ls.isEmpty() && !as.isEmpty()) {
+            int li = ls.pop();
+            int ai = as.pop();
+            if (li > ai) {
+                return false; 
+            }
+        }
+        return ls.isEmpty();
+    }
+}
