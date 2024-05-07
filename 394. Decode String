@@ -1,0 +1,28 @@
+class Solution {
+    public String decodeString(String s) {
+        Stack<Integer> c = new Stack<>();
+        Stack<String> st = new Stack<>();
+        StringBuilder cs = new StringBuilder();
+        int cnt = 0;
+        for (char ch : s.toCharArray()) {
+            if (Character.isDigit(ch)) {
+                cnt = cnt * 10 + (ch - '0');
+            } else if (ch == '[') {
+                c.push(cnt);
+                st.push(cs.toString());
+                cs = new StringBuilder();
+                cnt = 0;
+            } else if (ch == ']') {
+                int r = c.pop();
+                StringBuilder tmp = new StringBuilder(st.pop());
+                for (int i = 0; i < r; i++) {
+                    tmp.append(cs);
+                }
+                cs = tmp;
+            } else {
+                cs.append(ch);
+            }
+        }
+        return cs.toString();
+    }
+}
