@@ -1,0 +1,42 @@
+class Solution {
+     Stack <String> s=new Stack<>();
+     Stack <String> d=new Stack<>();
+    public String destCity(List<List<String>> paths) {
+    Stack <String> s=new Stack<>();
+     Stack <String> d=new Stack<>();
+
+        for(List<String> a: paths){
+           d.push(a.get(0));
+                 if (s.empty()) {
+                    s.push(a.get(1));
+                  
+                } else if (s.peek().equals(a.get(0)) ) {
+                    s.pop();
+                    s.push(a.get(1));
+                    
+          }      
+           } 
+         
+           while(d.contains(s.peek()))
+             check(paths,s);
+           
+
+                 return s.peek();
+
+    
+     }   
+     public static String check(List<List<String>> paths,Stack<String> s){
+        
+         for(List<String> a: paths){
+                 if (s.empty()) {
+                    s.push(a.get(1));
+                  
+                } else if (s.peek().equals(a.get(0)) ) {
+                    s.pop();
+                    s.push(a.get(1));
+                }
+         }
+         
+                return s.peek();
+          }      
+     }
