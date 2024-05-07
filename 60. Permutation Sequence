@@ -1,0 +1,24 @@
+class Solution {
+    public String getPermutation(int n, int k) {
+        int[] nums = new int[n];
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            nums[i] = i + 1;
+        }
+        int factorial = 1;
+        for (int i = 1; i <= n; i++) {
+            factorial *= i;
+        }
+        k--; 
+        for (int i = 0; i < n; i++) {
+            factorial /= (n - i);
+            int index = k / factorial;
+            result.append(nums[index]);
+            for (int j = index; j < n - i - 1; j++) {
+                nums[j] = nums[j + 1];
+            }
+            k %= factorial;
+        }
+        return result.toString();
+    }
+}
