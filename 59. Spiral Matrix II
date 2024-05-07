@@ -1,0 +1,34 @@
+class Solution {
+    public int[][] generateMatrix(int n) {
+      int[][] m=new int[n][n];  
+      int i = 0, j = 0, r = n - 1, c = n - 1;
+        int t=1;
+        while (i <= r && j <= c) {
+            for (int col = j; col <= c; col++) {
+              m[i][col]=t  ;
+              t++;
+            }
+            i++;
+            for (int row = i; row <= r; row++) {
+               m[row][c]=t  ;
+              t++;
+            }
+            c--;
+            if (i <= r) {
+                for (int col = c; col >= j; col--) {
+                    m[r][col]=t  ;
+              t++;
+                }
+                r--;
+            }
+            if (j <= c) {
+                for (int row = r; row >= i; row--) {
+                   m[row][j]=t  ;
+              t++;
+                }
+                j++;
+            }
+        }
+        return m;
+    }
+}
