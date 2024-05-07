@@ -1,0 +1,25 @@
+class Solution {
+    public int countStudents(int[] students, int[] sandwiches) {
+        int s = students.length;
+        int st = 0;
+        int d=0;
+        for (int i = st; i < s; i++) {
+            if(d==s)
+            return s-st;
+            if (students[i] == sandwiches[i]) {
+                st++;
+                d=st;
+            } else {
+                int c = students[i];
+                int j;
+                for (j = i + 1; j < s; j++) {
+                    students[j - 1] = students[j];
+                }
+                students[s - 1] = c;
+                i--;  
+               d++;
+            }
+        }
+        return s - st;
+    }
+}
