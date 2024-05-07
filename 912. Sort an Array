@@ -1,0 +1,29 @@
+class Solution {
+    public int[] sortArray(int[] nums) {
+        if(nums.length==1){
+            return nums;
+        }
+        int[] l=sortArray(Arrays.copyOfRange(nums,0,nums.length/2));
+        int[] r=sortArray(Arrays.copyOfRange(nums,nums.length/2,nums.length));
+        return merge(l,r);
+    }
+    public int[] merge(int[] l,int[] r){
+        int i=0,j=0,k=0;
+        int[] a=new int[l.length+r.length];
+        while(i<l.length && j<r.length){
+            if(l[i]<r[j]){
+                a[k++]=l[i++];
+            }
+            else{
+                a[k++]=r[j++];
+            }
+        }
+        while(i<l.length){
+            a[k++]=l[i++];
+        }
+        while(j<r.length){
+            a[k++]=r[j++];
+        }
+        return a;
+    }
+}
