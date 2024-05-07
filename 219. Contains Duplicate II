@@ -1,0 +1,18 @@
+class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        for(int i=0;i<nums.length;i++){
+            if(isthere(i,k,nums)){
+               return true;
+            }
+        }
+        return false;
+    }
+    public boolean isthere(int i,int k,int[] nums){
+        for(int j=i+1;j<(i+k+1) && j<nums.length;j++){
+            if(nums[i]==nums[j]){
+                return true;
+            }
+        }
+        return false;
+    }
+}
