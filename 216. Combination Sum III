@@ -1,0 +1,21 @@
+class Solution {
+    private List<List<Integer>> a=new ArrayList<>();
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        find(k,n,new ArrayList<Integer>(),1);
+        return a;
+    }
+    public void find(int k,int n,List<Integer> b,int s){
+          if(k==0 && n==0){
+            a.add(new ArrayList<>(b));
+            return;
+          }
+          if(k==0 || n<0){
+            return;
+          }
+          for(int i=s;i<=9;i++){
+            b.add(i);
+            find(k-1,n-i,b,i+1);
+            b.remove(b.size()-1);
+          }
+    }
+}
