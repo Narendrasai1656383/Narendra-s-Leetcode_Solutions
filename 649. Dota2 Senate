@@ -1,0 +1,30 @@
+class Solution {
+    public String predictPartyVictory(String senate) {
+        StringBuilder sb = new StringBuilder(senate);
+
+        while(true) {
+            char currentSenator = sb.charAt(0);
+            String firstOppositeSenator = getOppositeSenator(currentSenator);
+            int index = sb.indexOf(firstOppositeSenator);
+            if(index != -1) { 
+                sb.deleteCharAt(index);
+                sb.deleteCharAt(0); 
+                sb.append(currentSenator);
+            } else {
+                return fullName(currentSenator);
+            }
+        }
+    }
+      public String getOppositeSenator(char senator) {
+        return senator == 'D' ? "R" : "D";
+    }
+    public String fullName(char senator) {
+        switch(senator) {
+            case 'D':
+                return "Dire";
+            case 'R' :
+                return "Radiant";
+        };
+        return null;
+    }
+}
