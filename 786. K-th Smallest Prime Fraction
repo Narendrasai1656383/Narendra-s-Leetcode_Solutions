@@ -1,0 +1,37 @@
+class Solution {
+    public int[] kthSmallestPrimeFraction(int[] arr, int k) {
+        int n = arr.length;
+        double l = 0, r = 1;
+        int[] a = new int[2];
+        while (l < r) {
+            double m = l + (r - l) / 2;
+            int c = 0;
+            double mf = 0;
+            int nm = 0, dm = 1;
+            int j = 0;
+            for (int i = 0; i < n; i++) {
+                while (j < n && arr[i] > m * arr[j])
+                    j++;
+                if (j == n)
+                    break;
+                c += n - j;
+                double f = (double) arr[i] / arr[j];
+                if (f > mf) {
+                    mf = f;
+                    nm = arr[i];
+                    dm = arr[j];
+                }
+            }
+            if (c == k) {
+                a[0] = nm;
+                a[1] = dm;
+                break;
+            } else if (c < k) {
+                l = m;
+            } else {
+                r = m;
+            }
+        }
+        return a;
+    }
+}
