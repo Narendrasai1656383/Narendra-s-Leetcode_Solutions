@@ -1,0 +1,39 @@
+class Solution {
+    public int matrixScore(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        for (int i = 0; i < m; i++) {
+            if (grid[i][0] == 0) {
+                tr(grid, i);
+            }
+        }
+        for (int j = 1; j < n; j++) {
+            int c = 0;
+            for (int i = 0; i < m; i++) {
+                c += grid[i][j];
+            }
+            if (c < m - c) {
+                tc(grid, j);
+            }
+        }
+        int score = 0;
+        for (int i = 0; i < m; i++) {
+            int rv = 0;
+            for (int j = 0; j < n; j++) {
+                rv = (rv << 1) + grid[i][j];
+            }
+            score += rv;
+        }   
+        return score;
+    }
+    private void tr(int[][] grid, int row) {
+        for (int j = 0; j < grid[0].length; j++) {
+            grid[row][j] = 1 - grid[row][j];
+        }
+    } 
+    private void tc(int[][] grid, int col) {
+        for (int i = 0; i < grid.length; i++) {
+            grid[i][col] = 1 - grid[i][col];
+        }
+    }
+}
