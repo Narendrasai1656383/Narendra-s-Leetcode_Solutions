@@ -1,0 +1,34 @@
+import java.util.List;
+import java.util.ArrayList;
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> list = new ArrayList<>();
+        backtrack(s, 0, new ArrayList<>(), list);
+        return list;
+    }
+    private void backtrack(String s, int index, List<String> pali, List<List<String>> list) {
+        if (index == s.length()) {
+            list.add(new ArrayList<>(pali));
+            return;
+        }
+        for (int i = index + 1; i <= s.length(); i++) {
+            String substring = s.substring(index, i);
+            if (palindrome(substring)) {
+                pali.add(substring);
+                backtrack(s, i, pali, list);
+                pali.remove(pali.size() - 1);
+            }
+        }
+        return;
+    }
+    private boolean palindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            if (s.charAt(left++) != s.charAt(right--)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
