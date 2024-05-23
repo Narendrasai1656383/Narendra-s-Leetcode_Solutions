@@ -1,0 +1,20 @@
+class Solution {
+    int cnt = 0;
+    public int beautifulSubsets(int[] nums, int k) {
+        Arrays.sort(nums);
+        backtrack(new HashSet<>(), 0, nums, k);
+        return cnt-1;
+    }
+    public void backtrack(Set<Integer> curr, int i, int[] nums, int k) {
+        if (i == nums.length) {
+            cnt++;
+            return;
+        }
+        backtrack(curr, i + 1, nums, k); 
+        if (!curr.contains(nums[i] - k)) {
+            curr.add(nums[i]);
+            backtrack(curr, i + 1, nums, k);
+            curr.remove(Integer.valueOf(nums[i]));
+        }
+    }
+}
