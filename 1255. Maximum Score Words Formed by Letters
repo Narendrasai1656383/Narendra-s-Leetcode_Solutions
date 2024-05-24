@@ -1,0 +1,32 @@
+class Solution {
+    public int maxScoreWords(String[] words, char[] letters, int[] score) {
+        int[] letterFreq = new int[26];
+        for (char letter : letters) {
+            letterFreq[letter - 'a']++;
+        }
+        return backtrack(words, letterFreq.clone(), score, 0);
+    }
+    private int backtrack(String[] words, int[] letterFreq, int[] score, int index) {
+        if (index == words.length) return 0;
+        int scoreWithoutCurrentWord = backtrack(words, letterFreq.clone(), score, index + 1);
+        boolean canUseWord = true;
+        int wordScore = 0;
+        for (char letter : words[index].toCharArray()) {
+            int letterIndex = letter - 'a';
+            letterFreq[letterIndex]--;
+            if (letterFreq[letterIndex] < 0) {
+                canUseWord = false;
+                break;
+            }
+            wordScore += score[letterIndex];
+        }
+        int scoreWithCurrentWord = 0;
+        if (canUseWord) {
+            scoreWithCurrentWord = wordScore + backtrack(words, letterFreq, score, index + 1);
+        }
+        for (char letter : words[index].toCharArray()) {
+            letterFreq[letter - 'a']++;
+        }
+        return Math.max(scoreWithCurrentWord, scoreWithoutCurrentWord);
+    }
+}
