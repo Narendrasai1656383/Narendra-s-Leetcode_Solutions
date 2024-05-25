@@ -1,0 +1,22 @@
+class Solution {
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        Set<String> set=new HashSet<>(wordDict);
+        return backtrack(s,0,set);
+    }
+    private List<String> backtrack(String s,int index,Set<String> set){
+        List<String> list=new ArrayList<>();
+        if(index==s.length()){
+            list.add("");
+        }
+        for(int i=index+1;i<=s.length();i++){
+            String word=s.substring(index,i);
+            if(set.contains(word)){
+                List<String> next=backtrack(s,i,set);
+                for(String ne :next){
+                    list.add((word +(next.isEmpty()?"":" ")+ne).trim());
+                }
+            }
+        }
+        return list;
+    }
+}
