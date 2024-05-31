@@ -1,0 +1,20 @@
+class Solution {
+    public int[] singleNumber(int[] nums) {
+       Set<Integer> set=new HashSet<>();
+       int[] a=new int[2];
+       for(int i: nums){
+        if(set.contains(i)){
+            set.remove(i);
+        }
+        else{
+            set.add(i);
+        }
+       } 
+       Iterator value = set.iterator();
+       int j=0;
+       while (value.hasNext()) { 
+            a[j++]=(int)value.next();
+        } 
+       return a;
+    }
+}
