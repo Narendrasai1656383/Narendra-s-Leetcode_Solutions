@@ -1,0 +1,33 @@
+class Solution {
+    public List<String> commonChars(String[] words) {
+        int[] temp=count(words[0]);
+        for(int i=1;i<words.length;i++){
+            temp=intersection(temp,count(words[i]));
+        }
+        List<String> l=new ArrayList<>();
+        for(int i=0;i<26;i++){
+            if(temp[i]!=0){
+                String s=String.valueOf((char)('a'+i));
+                while(temp[i]>0){
+                    l.add(s);
+                    temp[i]--;
+                }
+            }
+        }
+        return l;
+    }
+    private int[] count(String s){
+        int[] t=new int[26];
+        for(char c :s.toCharArray()){
+            t[c-'a']++;
+        }
+        return t;
+    }
+    private int[] intersection(int[] a,int[] b){
+        int[] t=new int[26];
+        for(int i=0;i<26;i++){
+            t[i]=Math.min(a[i],b[i]);
+        }
+        return t;
+    }
+}
