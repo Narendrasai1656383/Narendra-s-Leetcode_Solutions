@@ -1,0 +1,53 @@
+class Solution {
+    Trie root;
+    public String replaceWords(List<String> dictionary, String sentence) {
+        root=new Trie();
+        for(String s : dictionary){
+            insert(s);
+        }
+        StringBuilder res=new StringBuilder();
+        String[] s=sentence.split(" ");
+        for(String i:s){
+            res.append(search(i));
+            res.append(" ");
+        }
+        return res.toString().trim();
+    }
+    private String search(String s){
+        Trie node=root;
+        int j=0;
+        for(char c:s.toCharArray()){
+            int i=c-'a';
+            j++;
+            if(node.child[i]==null){
+                return s;
+            }
+            else if(node.child[i].isEnd){
+                return s.substring(0,j);
+            }
+            else{
+                node=node.child[i];
+            }
+        }
+        return s;
+    }
+    private void insert(String s){
+        Trie node=root;
+        for(char c : s.toCharArray()){
+            int i=c-'a';
+            if(node.child[i]==null){
+                node.child[i]=new Trie();
+            }
+            node=node.child[i];
+        }
+        node.isEnd=true;
+    }
+}
+ class Trie{
+    Trie[] child;
+    boolean isEnd;
+    public Trie(){
+        child=new Trie[26];
+        isEnd=false;
+    }
+ }
