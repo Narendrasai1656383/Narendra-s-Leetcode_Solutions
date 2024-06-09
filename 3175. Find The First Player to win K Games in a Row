@@ -1,0 +1,18 @@
+class Solution {
+    public int findWinningPlayer(int[] skills, int k) {
+     int c=0,j=0;
+     for(int i=1;i<skills.length;i++){
+        if(skills[j]>skills[i]){
+            c++;
+        }
+        else{
+            j=i;
+            c=1;
+        }
+         if(c==k){
+                return j;
+            }
+     }   
+     return j;
+    }
+}
