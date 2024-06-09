@@ -1,0 +1,31 @@
+class Solution {
+    public String clearDigits(String s) {
+        StringBuilder sb = new StringBuilder(s);
+        while (true) {
+            boolean foundDigit = false;
+            for (int i = 0; i < sb.length(); i++) {
+                if (Character.isDigit(sb.charAt(i))) {
+                    foundDigit = true;
+                    int digitIndex = i;
+                    int nonDigitIndex = -1;
+                    for (int j = digitIndex - 1; j >= 0; j--) {
+                        if (!Character.isDigit(sb.charAt(j))) {
+                            nonDigitIndex = j;
+                            break;
+                        }
+                    }
+                    sb.deleteCharAt(digitIndex);
+                    if (nonDigitIndex != -1) {
+                        sb.deleteCharAt(nonDigitIndex);
+                    }
+                    break;
+                }
+            }
+            if (!foundDigit) {
+                break;
+            }
+        }
+        
+        return sb.toString();
+    }
+}
