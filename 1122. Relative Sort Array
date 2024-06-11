@@ -1,0 +1,28 @@
+class Solution {
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+        int l=0;
+        for(int i=0;i<arr1.length;i++){
+            l=Math.max(l,arr1[i]);
+        }
+        int[] arr=new int[l+1];
+        for(int i=0;i<arr1.length;i++){
+            arr[arr1[i]]++;
+        }
+        int j=0;
+        for(int i=0;i<arr2.length;i++){
+            while(arr[arr2[i]]>0){
+                arr1[j]=arr2[i];
+                j++;
+                arr[arr2[i]]--;
+            }
+        }
+        for(int i=0;i<arr.length;i++){
+            while(arr[i]>0){
+                arr1[j]=i;
+                j++;
+                arr[i]--;
+            }
+        }
+        return arr1;
+    }
+}
