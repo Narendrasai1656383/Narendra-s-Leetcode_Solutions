@@ -1,0 +1,30 @@
+class Solution {
+    private static class project{
+        int cap;
+        int pro;
+        project(int cap,int pro){
+            this.cap=cap;
+            this.pro=pro;
+        }
+    }
+    public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {
+        List<project> projects=new ArrayList<>();
+        for(int i=0;i<profits.length;i++){
+            projects.add(new project(capital[i],profits[i]));
+        }
+        Collections.sort(projects,(a,b)->a.cap-b.cap);
+        PriorityQueue<Integer> heap=new PriorityQueue<>((x,y)->y-x);
+        int i=0;
+        for(int j=0;j<k;j++){
+            while(i<profits.length && projects.get(i).cap<=w){
+                heap.add(projects.get(i).pro);
+                i++;
+            }
+            if(heap.isEmpty()){
+                break;
+            }
+            w+=heap.poll();
+        }
+        return w;
+    }
+}
