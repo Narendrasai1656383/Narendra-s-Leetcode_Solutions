@@ -1,0 +1,25 @@
+class Solution {
+    public int maxProfitAssignment(int[] difficulty, int[] profit, int[] worker) {
+        int maxd=0;
+        for(int d:difficulty){
+            maxd=Math.max(d,maxd);
+        }
+        int[] maxp=new int[maxd+1];
+        for(int i=0;i<difficulty.length;i++){
+            maxp[difficulty[i]]=Math.max(maxp[difficulty[i]],profit[i]);
+        }
+        for(int i=1;i<=maxd;i++){
+            maxp[i]=Math.max(maxp[i],maxp[i-1]);
+        }
+        int tp=0;
+        for(int abi:worker){
+            if(abi>maxd){
+                tp+=maxp[maxd];
+            }
+            else{
+                tp+=maxp[abi];
+            }
+        }
+        return tp;
+    }
+}
