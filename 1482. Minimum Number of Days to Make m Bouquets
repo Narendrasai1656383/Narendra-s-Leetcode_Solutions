@@ -1,0 +1,36 @@
+class Solution {
+    public int minDays(int[] bloomDay, int m, int k) {
+        if((long)m*k>bloomDay.length){
+            return -1;
+        }
+        int l=1,h=(int)1e9;
+        while(l<h){
+            int mid=l+(h-l)/2;
+            if(find(bloomDay,m,k,mid)){
+                h=mid;
+            }
+            else{
+                l=mid+1;
+            }
+        }
+        return l;
+    }
+    private boolean find(int[] bloomDay,int m,int k,int day){
+        int td=0;
+        for(int i=0;i<bloomDay.length;i++){
+            int c=0;
+            while(i<bloomDay.length && c<k && bloomDay[i]<=day){
+                c++;
+                i++;
+            }
+            if(c==k){
+                td++;
+                i--;
+            }
+            if(td>=m){
+                return true;
+            }
+        }
+        return false;
+    }
+}
