@@ -1,0 +1,29 @@
+class Solution {
+    public int maxDistance(int[] position, int m) {
+        Arrays.sort(position);
+        int l=0,h=(position[position.length-1]-position[0])/(m-1);
+        while(l<=h){
+            int mid=l+(h-l)/2;
+            if(find(position,mid,m)){
+                l=mid+1;
+            }
+            else{
+                h=mid-1;
+            }
+        }
+        return l-1;
+    }
+    private boolean find(int[] position,int mid,int m){
+        int p=1,ele=position[0];
+        for(int i=0;i<position.length;i++){
+            if(position[i]-ele>=mid){
+                p++;
+                ele=position[i];
+            }
+            if(p>=m){
+                return true;
+            }
+        }
+        return false;
+    }
+}
