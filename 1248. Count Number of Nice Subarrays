@@ -1,0 +1,19 @@
+class Solution {
+    public int numberOfSubarrays(int[] nums, int k) {
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = nums[i] % 2 == 0 ? 0 : 1;
+        }
+        HashMap<Integer, Integer> mapc = new HashMap<>();
+        mapc.put(0, 1);
+        int sum = 0;
+        int nice = 0;
+        for (int num : nums) {
+            sum += num;
+            if (mapc.containsKey(sum - k)) {
+                nice += mapc.get(sum - k);
+            }
+            mapc.put(sum, mapc.getOrDefault(sum, 0) + 1);
+        }
+        return nice;
+    }
+}
