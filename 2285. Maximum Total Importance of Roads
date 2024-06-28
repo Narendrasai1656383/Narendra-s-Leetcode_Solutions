@@ -1,0 +1,17 @@
+class Solution {
+    public long maximumImportance(int n, int[][] roads) {
+       int[] arr=new int[n];
+       for(int[] road : roads){
+        arr[road[0]]++;
+        arr[road[1]]++;
+       } 
+       Arrays.sort(arr);
+       long count=1;
+       long mti=0;
+       for(int a : arr){
+          mti+=(long)count*a;
+          count++;
+       }
+       return mti;
+    }
+}
