@@ -1,0 +1,57 @@
+class Solution {
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        DSU a = new DSU(n), b = new DSU(n);
+        int added = 0;
+        Arrays.sort(edges, (x, y) -> y[0] - x[0]);
+        for (int[] e : edges) {
+            int t = e[0], u = e[1] - 1, v = e[2] - 1;
+            if (t == 3) {
+                if (a.union(u, v) | b.union(u, v)) added++;
+            } else if (t == 1) {
+                if (a.union(u, v)) added++;
+            } else if (t == 2) {
+                if (b.union(u, v)) added++;
+            }
+        }
+        if (a.count() != 1 || b.count() != 1) return -1;
+        return edges.length - added;
+    }
+}
+
+class DSU {
+    private int[] p, r;
+    private int c;
+
+    public DSU(int n) {
+        p = new int[n];
+        r = new int[n];
+        c = n;
+        for (int i = 0; i < n; i++) {
+            p[i] = i;
+            r[i] = 1;
+        }
+    }
+
+    public int find(int u) {
+        if (p[u] != u) p[u] = find(p[u]);
+        return p[u];
+    }
+
+    public boolean union(int u, int v) {
+        int ru = find(u), rv = find(v);
+        if (ru == rv) return false;
+        if (r[ru] > r[rv]) {
+            p[rv] = ru;
+        } else if (r[ru] < r[rv]) {
+            p[ru] = rv;
+        } else {
+            p[rv] = ru;
+            r[ru]++;
+        }
+        c--;
+        return true;
+    }
+    public int count() {
+        return c;
+    }
+}
