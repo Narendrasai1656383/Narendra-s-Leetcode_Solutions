@@ -1,0 +1,29 @@
+class Solution {
+    public int maxHeightOfTriangle(int red, int blue) {
+        return Math.max(find(red,blue,true),find(red,blue,false));
+    }
+    public int find(int red,int blue,boolean b){
+        int height=0;
+        while(true){
+            height++;
+            if(b){
+                if(blue>=height){
+                    blue-=height;
+                }
+                else{
+                    break;
+                }
+            }
+            else{
+                if(red>=height){
+                    red-=height;
+                }
+                else{
+                    break;
+                }
+            }
+            b=!b;
+        }
+        return height-1;
+    }
+}
