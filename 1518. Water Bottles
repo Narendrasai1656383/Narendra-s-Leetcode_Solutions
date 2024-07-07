@@ -1,0 +1,10 @@
+class Solution {
+    public int numWaterBottles(int numBottles, int numExchange) {
+        int maxd=numBottles;
+        while(numBottles>=numExchange){
+            maxd+=numBottles/numExchange;
+            numBottles=numBottles/numExchange+numBottles%numExchange;
+        }
+        return maxd;
+    }
+}
