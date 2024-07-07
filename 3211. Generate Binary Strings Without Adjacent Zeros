@@ -1,0 +1,24 @@
+class Solution {
+    public List<String> validStrings(int n) {
+         List<String> result = new ArrayList<>();
+        if (n==0){
+            return result;
+        }
+        backtrack(result,new StringBuilder(),n);
+        return result;
+    }
+    private void backtrack(List<String> result,StringBuilder sb,int n){
+        if (sb.length()==n){
+            result.add(sb.toString());
+            return;
+        }
+        sb.append('1');
+        backtrack(result,sb,n);
+        sb.deleteCharAt(sb.length()-1);
+        if (sb.length()==0 || sb.charAt(sb.length()-1)!='0'){
+            sb.append('0');
+            backtrack(result,sb,n);
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
+}
