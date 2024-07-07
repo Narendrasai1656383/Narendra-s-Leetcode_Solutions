@@ -1,0 +1,17 @@
+class Solution {
+    public int numberOfAlternatingGroups(int[] colors) {
+        int altg=0;
+        if(colors[colors.length-1]!=colors[0] && colors[0]!=colors[1]){
+            altg++;
+        }
+        for(int i=1;i<colors.length-1;i++){
+            if(colors[i-1]!=colors[i] && colors[i]!=colors[i+1]){
+                altg++;
+            }
+        }
+        if(colors[colors.length-2]!=colors[colors.length-1] && colors[colors.length-1]!=colors[0]){
+            altg++;
+        }
+        return altg;
+    }
+}
