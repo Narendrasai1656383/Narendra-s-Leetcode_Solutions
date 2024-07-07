@@ -1,0 +1,10 @@
+class Solution {
+    public String getEncryptedString(String s, int k) {
+     StringBuffer sb=new StringBuffer();
+    int i=k%s.length();
+    while(sb.length()<s.length()){
+        sb.append(s.charAt(i++%s.length()));
+    }
+    return sb.toString();
+    }
+}
