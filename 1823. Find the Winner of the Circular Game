@@ -1,0 +1,15 @@
+class Solution {
+    public int findTheWinner(int n, int k) {
+     List<Integer> l=new ArrayList<>();
+     int i=0;
+     for(i=1;i<=n;i++){
+        l.add(i);
+     }
+     i=0;
+     for(int j=1;j<n;j++){
+        i=(i+k-1)%l.size();
+        l.remove(i);
+     }
+     return l.get(0);
+    }
+}
