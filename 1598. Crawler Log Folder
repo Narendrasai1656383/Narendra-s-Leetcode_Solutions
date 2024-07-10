@@ -1,0 +1,14 @@
+class Solution {
+    public int minOperations(String[] logs) {
+        int count=0;
+        for(String i : logs){
+            if(i.equals("../") && count>0){
+                count--;
+            }
+            else if(!i.equals("./") && !i.equals("../")){
+                count++;
+            }
+        }
+        return count;
+    }
+}
