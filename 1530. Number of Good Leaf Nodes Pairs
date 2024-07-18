@@ -1,0 +1,49 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int count=0;
+    public int countPairs(TreeNode root, int distance) {
+        shortPath(root,distance);
+        return count;
+    }
+    private List<Integer> shortPath(TreeNode root,int distance){
+        if(root==null){
+            return new ArrayList<Integer>();
+        }
+        if(root.left==null && root.right==null){
+            List l=new ArrayList<Integer>();
+            l.add(1);
+            return l;
+        }
+        List<Integer> l1=shortPath(root.left,distance);
+        List<Integer> l2=shortPath(root.right,distance);
+        for(int dis1:l1){
+            for(int dis2:l2){
+                if(dis1+dis2<=distance){
+                    count++;
+                }
+            }
+        }
+        List<Integer> l=new ArrayList<>();
+        for(int dis:l1){
+            l.add(dis+1);
+        }
+        for(int dis:l2){
+            l.add(dis+1);
+        }
+        return l;
+    }
+}
