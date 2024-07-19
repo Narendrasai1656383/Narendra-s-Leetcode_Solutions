@@ -1,0 +1,27 @@
+class Solution {
+    public List<Integer> luckyNumbers (int[][] matrix) {
+        int[] rowm=new int[matrix.length];
+        Arrays.fill(rowm,100000);
+        int[] colm=new int[matrix[0].length];
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                if(rowm[i]>matrix[i][j]){
+                    rowm[i]=matrix[i][j];
+                }
+                if(colm[j]<matrix[i][j]){
+                    colm[j]=matrix[i][j];
+                }
+            }
+        }
+        List<Integer> l=new ArrayList<>();
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                if(matrix[i][j]==rowm[i] && matrix[i][j]==colm[j]){
+                    l.add(matrix[i][j]);
+                    break;
+                }
+            }
+        }
+        return l;
+    }
+}
