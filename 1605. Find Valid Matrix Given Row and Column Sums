@@ -1,0 +1,18 @@
+class Solution {
+    public int[][] restoreMatrix(int[] rowSum, int[] colSum) {
+        int[][] mat=new int[rowSum.length][colSum.length];
+        for(int i=0;i<rowSum.length;i++){
+            for(int j=0;j<colSum.length;j++){
+                if(rowSum[i]<colSum[j]){
+                    mat[i][j]=rowSum[i];
+                }
+                else{
+                    mat[i][j]=colSum[j];
+                }
+                rowSum[i]=rowSum[i]-mat[i][j];
+                colSum[j]=colSum[j]-mat[i][j];
+            }
+        }
+        return mat;
+    }
+}
