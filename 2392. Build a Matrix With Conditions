@@ -1,0 +1,52 @@
+class Solution {
+    public int[][] buildMatrix(int k, int[][] rowConditions, int[][] colConditions) {
+        int[] row=toposort(k,rowConditions);
+        int[] col=toposort(k,colConditions);
+        if(row==null || col==null){
+            return new int[0][0];
+        }
+        int[][] mat=new int[k][k];
+        int[] rowp=new int[k+1];
+        int[] colp=new int[k+1];
+        for(int i=0;i<k;i++){
+            rowp[row[i]]=i;
+            colp[col[i]]=i;
+        }
+        for(int i=1;i<=k;i++){
+            mat[rowp[i]][colp[i]]=i;
+        }
+        return mat;
+    }
+    private int[] toposort(int k,int[][] mat){
+        List<Integer>[] g=new List[k+1];
+        int[] id=new int[k+1];
+        for(int i=1;i<=k;i++){
+            g[i]=new ArrayList<>();
+        }
+        for(int[] m:mat){
+            int u=m[0];
+            int v=m[1];
+            g[u].add(v);
+            id[v]++;
+        }
+        Queue<Integer> queue=new LinkedList<>();
+        for(int i=1;i<=k;i++){
+            if(id[i]==0){
+                queue.offer(i);
+            }
+        }
+        int[] order=new int[k];
+        int i=0;
+        while(!queue.isEmpty()){
+            int node=queue.poll();
+            order[i++]=node;
+            for(int n:g[node]){
+                id[n]--;
+                if(id[n]==0){
+                    queue.offer(n);
+                }
+            }
+        }
+        return i==k?order:null;
+    }
+}
