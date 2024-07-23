@@ -1,0 +1,23 @@
+class Solution {
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        int count=0;
+        Set<Integer> v=new HashSet<>();
+        List<Integer> l=new ArrayList<>();
+        l.add(0);
+        int i=0;
+        while(i<l.size()){
+            if(v.size()==rooms.size()){
+                return true;
+            }
+            if(!v.contains(l.get(i))){
+                v.add(l.get(i));
+                List<Integer> key=rooms.get(l.get(i));
+                for(int k:key){
+                    l.add(k);
+                } 
+            }
+            i++;
+        }
+        return rooms.size()==v.size();
+    }
+}
