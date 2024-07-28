@@ -1,0 +1,55 @@
+class Pair{
+    int node;
+    int timeElapsed;
+    public Pair(int node,int timeElapsed){
+        this.node=node;
+        this.timeElapsed=timeElapsed;
+    }
+}
+class Solution {
+    public int secondMinimum(int n, int[][] edges, int time, int change) {
+        ArrayList<ArrayList<Integer>> arr=new ArrayList<>();
+        for(int i=0;i<=n;i++){
+            arr.add(new ArrayList<>());
+        }
+        for(int[] e:edges){
+            arr.get(e[0]).add(e[1]);
+            arr.get(e[1]).add(e[0]);
+        }
+        int[] d1=new int[n+1];
+        int[] d2=new int[n+1];
+        Arrays.fill(d1,Integer.MAX_VALUE);
+        Arrays.fill(d2,Integer.MAX_VALUE);
+        d1[1]=0;
+        PriorityQueue<Pair> pq=new PriorityQueue<>(new Comparator<Pair>(){
+            public int compare(Pair p1,Pair p2){
+                return p1.timeElapsed-p2.timeElapsed;
+            }
+        });
+                pq.add(new Pair(1,0));
+
+        // pq.add(new Pair(1,0));
+        while(!pq.isEmpty()){
+            Pair p=pq.poll();
+            if(p.node==n && d2[n]!=Integer.MAX_VALUE){
+                return d2[n];
+            }
+            int div=(p.timeElapsed/change);
+            int timeTotal=p.timeElapsed;
+            if(div%2!=0){
+                timeTotal=(div+1)*change;
+            }
+            for(Integer a:arr.get(p.node)){
+                if(d1[a]==Integer.MAX_VALUE){
+                    d1[a]=timeTotal+time;
+                    pq.add(new Pair(a,d1[a]));
+                }
+                else if(d2[a]==Integer.MAX_VALUE && d1[a]!=timeTotal+time){
+                    d2[a]=timeTotal+time;
+                    pq.add(new Pair(a,d2[a]));
+                }
+            }
+        }
+return -1;
+    }
+}
