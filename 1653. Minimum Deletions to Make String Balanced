@@ -1,0 +1,17 @@
+class Solution {
+    public int minimumDeletions(String s) {
+        int c=0,b=0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='a'){
+                if(b>0){
+                    c++;
+                    b--;
+                }
+            }
+            else{
+                b++;
+            }
+        }
+        return c;
+    }
+}
