@@ -1,0 +1,31 @@
+class Solution {
+    public int minHeightShelves(int[][] books, int shelfWidth) {
+          int[] dp = new int[books.length];
+        return find(0,dp,books,shelfWidth);
+    }
+
+    private int find(int index,int[] dp,int[][] books,int shelfWidth){
+        if(index>=books.length){
+            return 0;
+        }
+        if(dp[index] != 0){
+            return dp[index];
+        }
+        int totalWidth = 0;
+        int maxHeight = Integer.MIN_VALUE;
+        int ans = Integer.MAX_VALUE;
+        int i = index;
+        while(i<books.length){
+            totalWidth += books[i][0];
+            if(totalWidth<=shelfWidth){
+                maxHeight = Math.max(books[i][1],maxHeight);
+                ans = Math.min(maxHeight + find(i+1,dp,books,shelfWidth),ans);
+                i++;
+            }else{
+                break;
+            }
+        }
+        ans = Math.min(maxHeight + find(i,dp,books,shelfWidth),ans);
+        return dp[index] = ans;
+    }
+}
