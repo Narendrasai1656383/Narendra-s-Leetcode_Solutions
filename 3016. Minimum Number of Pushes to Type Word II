@@ -1,0 +1,15 @@
+class Solution {
+    public int minimumPushes(String word) {
+        Map<Character,Integer> map=new HashMap<>();
+        for(int i=0;i<word.length();i++){
+            map.put(word.charAt(i),map.getOrDefault(word.charAt(i),0)+1);
+        }
+        List<Map.Entry<Character,Integer>> l=new ArrayList<>(map.entrySet());
+        Collections.sort(l,(o1,o2) ->o2.getValue()-o1.getValue());
+        int pushes=0;
+        for(int i=0;i<l.size();i++){
+            pushes+=l.get(i).getValue()*(i/8+1);
+        }
+        return pushes;
+    }
+}
