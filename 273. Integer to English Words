@@ -1,0 +1,55 @@
+class Solution {
+    private static String[] pre=new String[]{
+        null,"Thousand","Million","Billion","Trillion","Quadrillion","Quintillion","Sextillion","Septillion","Octillion","Nonillion","Decillion"
+    };
+    private static String[] teen=new String[]{
+        null,"One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"
+    };
+    private static String[] twodigi=new String[]{
+        null,null,"Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"
+    };
+    public String numberToWords(int num) {
+        if(num==0){
+            return "Zero";
+        }
+        int pcount=0;
+        List<String> revword=new ArrayList<>();
+        for(;;){
+            int part=num%1000;
+            if(part!=0){
+                if(pcount>0){
+                    revword.add(pre[pcount]);
+                }
+                int tpart=part%100;
+                if(tpart>=10 && tpart<=19){
+                    revword.add(teen[tpart]);
+                }
+                else{
+                    if(tpart%10>0){
+                        revword.add(teen[tpart%10]);
+                    }
+                    if(tpart>=20){
+                        revword.add(twodigi[tpart/10]);
+                    }
+                }
+                if(part>=100){
+                    revword.add("Hundred");
+                    revword.add(teen[part/100]);
+                }
+            }
+            pcount++;
+            num/=1000;
+            if(num==0){
+                break;
+            }
+        }
+        StringBuilder sb=new StringBuilder();
+        for(int i=revword.size()-1;i>=0;i--){
+            sb.append(revword.get(i));
+            if(i!=0){
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
+    }
+}
