@@ -1,0 +1,26 @@
+class Solution {
+    public int[][] spiralMatrixIII(int rows, int cols, int rStart, int cStart) {
+        int[][] direction={{0,1},{1,0},{0,-1},{-1,0}};
+        int[][] grid=new int[rows*cols][2];
+        int count=0,i=0,dir=0,step=1;
+        while(count<(rows*cols)){
+            for(int j=0;j<2;j++){
+                for(int k=0;k<step;k++){
+                    if(cStart<cols && cStart>=0 && rStart<rows && rStart>=0){
+                        grid[i][0]=rStart;
+                        grid[i++][1]=cStart;
+                        count++;
+                    }
+                    if(count==rows*cols){
+                        return grid;
+                    }
+                    rStart+=direction[dir][0];
+                    cStart+=direction[dir][1];
+                }
+                dir=(dir+1)%4;
+            }
+            step++;
+        }
+        return grid;
+    }
+}
