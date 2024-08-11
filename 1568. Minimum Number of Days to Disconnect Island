@@ -1,0 +1,44 @@
+class Solution {
+    int[][] dire={{0,1},{1,0},{0,-1},{-1,0}};
+    public int minDays(int[][] grid) {
+        int count=count(grid);
+        if(count!=1){
+            return 0;
+        }
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==1){
+                    grid[i][j]=0;
+                    if(count(grid)!=1){
+                        return 1;
+                    }
+                    grid[i][j]=1;
+                }
+            }
+        }
+        return 2;
+    }
+    private int count(int[][] grid){
+        boolean[][] vis=new boolean[grid.length][grid[0].length];
+        int count=0;
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(!vis[i][j] && grid[i][j]==1){
+                    count++;
+                    dfs(grid,i,j,vis);
+                }
+            }
+        }
+        return count;
+    }
+    private void dfs(int[][] grid,int row,int col,boolean[][] vis){
+        vis[row][col]=true;
+        for(int[] dir:dire){
+            int nr=row+dir[0];
+            int nc=col+dir[1];
+            if(nr>=0 && nr<grid.length && nc>=0 && nc<grid[0].length && !vis[nr][nc] && grid[nr][nc]==1){
+                dfs(grid,nr,nc,vis);
+            }
+        }
+    }
+}
