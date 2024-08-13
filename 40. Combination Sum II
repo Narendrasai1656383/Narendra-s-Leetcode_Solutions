@@ -1,0 +1,25 @@
+class Solution {
+    List<List<Integer>> l=new ArrayList<>();
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        find(new ArrayList<>(),0,target,candidates,0);
+        return l;
+    }
+    private void find(List<Integer> li,int sum,int target,int[] arr,int index){
+        if(sum==target){
+            l.add(new ArrayList<>(li));
+            return;
+        }
+        else if(sum>target){
+            return;
+        }
+        for(int i=index;i<arr.length;i++){
+            if(i>index && arr[i]==arr[i-1]){
+                continue;
+            }
+            li.add(arr[i]);
+            find(li,sum+arr[i],target,arr,i+1);
+            li.remove(li.size()-1);
+        }
+    }
+}
