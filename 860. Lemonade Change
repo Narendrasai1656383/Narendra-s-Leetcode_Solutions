@@ -1,0 +1,35 @@
+class Solution {
+    public boolean lemonadeChange(int[] bills) {
+        int[] change=new int[3];
+        Arrays.fill(change,0);
+        for(int i:bills){
+            if(!provideschange(i,change)){
+                return false;
+            }
+            System.out.println(Arrays.toString(change));
+        }
+        return true;
+    }
+    private boolean provideschange(int i,int[] change){
+        int original=i;
+        i-=5;
+        if(i==0){
+            change[0]++;
+            return true;
+        }
+        if(i/20>0 && change[2]>=i/20){
+            change[2]-=i/20;
+            i-=(i/20)*20;
+        }
+        if(i/10>0 && change[1]>=i/10){
+            change[1]-=i/10;
+            i-=(i/10)*10;
+        }
+        if(i/5>0 && change[0]>=i/5){
+            change[0]-=i/5;
+            i-=(i/5)*5;
+        }
+        change[original/10]++;
+        return i==0?true:false;
+    }
+}
