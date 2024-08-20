@@ -1,0 +1,23 @@
+class Solution {
+    public int stoneGameII(int[] piles) {
+        int[][] dp=new int[piles.length][piles.length+1];
+        int[] ssum=new int[piles.length];
+        ssum[piles.length-1]=piles[piles.length-1];
+        for(int i=piles.length-2;i>=0;i--){
+            ssum[i]=ssum[i+1]+piles[i];
+        }
+        for(int i=piles.length-1;i>=0;i--){
+            for(int j=1;j<=piles.length;j++){
+                if(i+2*j>=piles.length){
+                    dp[i][j]=ssum[i];
+                }
+                else{
+                    for(int k=1;k<=2*j;k++){
+                        dp[i][j]=Math.max(dp[i][j],ssum[i]-dp[i+k][Math.max(j,k)]);
+                    }
+                }
+            }
+        }
+        return dp[0][1];
+    }
+}
