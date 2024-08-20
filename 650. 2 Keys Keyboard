@@ -1,0 +1,16 @@
+class Solution {
+    public int minSteps(int n) {
+        int count=0;
+        int ca=2;
+        while(n>1){
+            if(n%ca==0){
+                count+=ca;
+                n/=ca;
+            }
+            else{
+                ca++;
+            }
+        }
+        return count;
+    }
+}
