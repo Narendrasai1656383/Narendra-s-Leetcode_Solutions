@@ -1,0 +1,29 @@
+class Solution {
+    public String nearestPalindromic(String n) {
+        long num=Long.parseLong(n);
+        int len=n.length();
+        HashSet<Long> set=new HashSet<>();
+        set.add((long)pali(Long.parseLong(n.substring(0,(len+1)/2))-1,len));
+        set.add((long)pali(Long.parseLong(n.substring(0,(len+1)/2))+1,len));
+        set.add((long)pali(Long.parseLong(n.substring(0,(len+1)/2)),len));
+        set.add((long)Math.pow(10,len-1)-1);
+        set.add((long)Math.pow(10,len)+1);
+        set.remove(num);
+        long nearest=-1;
+        for(long l:set){
+            if(nearest==-1 || Math.abs(l-num)<Math.abs(nearest-num) || (Math.abs(l-num)==Math.abs(nearest-num) && l<nearest)){
+                nearest=l;
+            }
+        }
+        return String.valueOf(nearest);
+    }   
+    private long pali(long num,int n){
+        String s=String.valueOf(num);
+        StringBuilder sb1=new StringBuilder(s);
+        StringBuilder sb2=new StringBuilder(s).reverse();
+        if(n%2==1){
+            sb2.deleteCharAt(0);
+        }
+        return Long.parseLong(sb1.append(sb2).toString());
+    }
+}
