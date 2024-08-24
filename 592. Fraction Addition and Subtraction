@@ -1,0 +1,50 @@
+class Solution {
+    public String fractionAddition(String expression) {
+        int nume=0;
+        int deno=1;
+        char[]ex=expression.toCharArray();
+        int i=0;
+        while(i<ex.length){
+            int currNume=0;
+            int currDeno=0;
+            boolean isNeg=(ex[i]=='-');
+            if(ex[i]=='+'){
+                i++;
+            }
+            else if(ex[i]=='-'){
+                isNeg=true;
+                i++;
+            }
+            while(i<ex.length && Character.isDigit(ex[i])){
+                int val=ex[i]-'0';
+                currNume=(currNume*10)+val;
+                i++;
+            }
+            i++;// to skip the devisor char '/';
+            if(isNeg){
+                currNume=-currNume;
+            }
+
+            while(i<ex.length && Character.isDigit(ex[i])){
+                int val=ex[i]-'0';
+                currDeno=(currDeno*10)+val;
+                i++;
+            }
+            nume=nume*currDeno+currNume*deno;
+            deno=deno*currDeno;
+        }
+        int gcd= Math.abs(findGCD(nume,deno));
+        nume/=gcd;
+        deno/=gcd;
+        return Integer.toString(nume)+"/"+Integer.toString(deno);
+
+    }
+     public static int findGCD(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+}
