@@ -1,0 +1,45 @@
+class Solution {
+    public int countPairs(int[] nums) {
+       int count=0;
+       for(int i=0;i<nums.length;i++){
+        for(int j=i+1;j<nums.length;j++){
+            if(equalo(nums[i],nums[j])){
+                count++;
+            }
+        }
+       } 
+       return count;
+    }
+    private boolean equalo(int num1,int num2){
+        String s1=String.valueOf(num1);
+        String s2=String.valueOf(num2);
+        if(s1.equals(s2)){
+            return true;
+        }
+        if(canswap(s1,s2)){
+            return true;
+        }
+        if(canswap(s2,s1)){
+            return true;
+        }
+        return false;
+    }
+    private boolean canswap(String s1,String s2){
+        for(int i=0;i<s1.length();i++){
+            for(int j=i+1;j<s1.length();j++){
+                char[] arr=s1.toCharArray();
+                swap(arr,i,j);
+                if(Integer.parseInt(String.valueOf(arr))==Integer.parseInt(s2)){
+                    return true;
+                }
+                swap(arr,i,j);
+            }
+        }
+        return false;
+    }
+    private void swap(char[] arr,int i,int j){
+        char t=arr[i];
+        arr[i]=arr[j];
+        arr[j]=t;
+    }
+}
