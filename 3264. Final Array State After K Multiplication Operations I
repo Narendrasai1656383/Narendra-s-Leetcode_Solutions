@@ -1,0 +1,15 @@
+class Solution {
+    public int[] getFinalState(int[] nums, int k, int multiplier) {
+        for(int i=0;i<k;i++){
+            int min=Integer.MAX_VALUE,pj=0;
+            for(int j=0;j<nums.length;j++){
+                if(nums[j]<min){
+                    min=nums[j];
+                    pj=j;
+                }
+            }
+            nums[pj]=nums[pj]*multiplier;
+        }
+        return nums;
+    }
+}
