@@ -1,0 +1,109 @@
+class Solution {
+    private static int INF = 2_000_000_000;
+
+    private static record Path(int[] path, int w) {};
+
+    private static Path getShortestPath(int n, int[][] adjMat, int src, int dest, int wInf) {
+        int[] d = new int[n], p = new int[n];
+        Arrays.fill(d, INF);
+        Arrays.fill(p, -1);
+        d[src] = 0;
+        boolean[] visited = new boolean[n];
+        while (!visited[dest]) {
+            int v = -1;
+            for (int t = 0; t < n; ++t) {
+                if (!visited[t] && (v == -1 || d[t] < d[v])) {
+                    v = t;
+                }
+            }
+            if (v == -1 || d[v] == INF) {
+                break;
+            }
+            visited[v] = true;
+            for (int to = 0; to < n; ++to) {
+                int w = (adjMat[v][to] == INF ? wInf : adjMat[v][to]);
+                if (0 < w && d[to] > d[v] + w) {
+                    d[to] = d[v] + w;
+                    p[to] = v;
+                }
+            }
+        }
+        if (!visited[dest]) {
+            return new Path(new int[0], INF);
+        }
+        List<Integer> rpath = new ArrayList<>();
+        for (int v = dest; v != -1; v = p[v]) {
+            rpath.add(v);
+        }
+        int l = rpath.size(), i = l - 1;
+        int[] path = new int[l];
+        for (int v : rpath) {
+            path[i] = v;
+            --i;
+        }
+        return new Path(path, d[dest]);
+    }
+
+
+    private static int getDistance(int n, int[][] adjMat, int src, int dest) {
+        int[] d = new int[n];
+        Arrays.fill(d, INF);
+        d[src] = 0;
+        boolean[] visited = new boolean[n];
+        while (!visited[dest]) {
+            int v = -1;
+            for (int t = 0; t < n; ++t) {
+                if (!visited[t] && (v == -1 || d[t] < d[v])) {
+                    v = t;
+                }
+            }
+            if (v == -1 || d[v] == INF) {
+                break;
+            }
+            visited[v] = true;
+            for (int to = 0; to < n; ++to) {
+                if (0 < adjMat[v][to] && adjMat[v][to] < INF && d[to] > d[v] + adjMat[v][to]) {
+                    d[to] = d[v] + adjMat[v][to];
+                }
+            }
+        }
+        return d[dest];
+    }
+
+    public int[][] modifiedGraphEdges(int n, int[][] edges, int source, int destination, int target) {
+        int[][] adjMat = new int[n][n], eiMat = new int[n][n];
+        for (int ei = 0, en = edges.length; ei < en; ++ei) {
+            int[] e = edges[ei];
+            if (e[2] == -1) {
+                e[2] = INF;
+            }
+            int u = e[0], v = e[1], w = e[2];
+            adjMat[u][v] = adjMat[v][u] = w;
+            eiMat[u][v] = eiMat[v][u] = ei;
+        }
+        int dInf = getDistance(n, adjMat, source, destination);
+        if (dInf < target) {
+            return new int[0][0];
+        } else if (dInf == target) {
+            return edges;
+        }
+        Path path = getShortestPath(n, adjMat, source, destination, 1);
+        if (path.w() > target) {
+            return new int[0][0];
+        }
+        int[] p = path.path();
+        for (int vi = 1, pl = p.length; vi < pl; ++vi) {
+            int u = p[vi - 1], v = p[vi];
+            int[] e = edges[eiMat[u][v]];
+            if (e[2] == INF) {
+                adjMat[u][v] = adjMat[v][u] = e[2] = 1;
+                int d = getDistance(n, adjMat, source, destination);
+                if (d <= target) {
+                    adjMat[u][v] = adjMat[v][u] = e[2] = 1 + target - d;
+                    break;
+                }
+            }
+        }
+        return edges;
+    }
+}
