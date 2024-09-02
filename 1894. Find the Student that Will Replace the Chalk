@@ -1,0 +1,16 @@
+class Solution {
+    public int chalkReplacer(int[] chalk, int k) {
+        long[] l=new long[chalk.length];
+        long kk=k;
+        l[0]=chalk[0];
+        for(int i=1;i<chalk.length;i++){
+          l[i]=chalk[i]+l[i-1];
+        }
+        kk=kk%l[l.length-1];
+        int i=0;
+        while(kk>=l[i]){
+            i++;
+        }
+        return i;
+    }
+}
