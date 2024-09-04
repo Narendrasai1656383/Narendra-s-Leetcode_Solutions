@@ -1,0 +1,32 @@
+class Solution {
+    public int robotSim(int[] commands, int[][] obstacles) {
+        int ans=0;
+        int dir=0;
+        int[] directions={0,1,0,-1,0};
+        HashSet<Integer> set=new HashSet<>();
+        for(int[] obst:obstacles){
+            set.add(obst[0]*60010+obst[1]);
+        }
+        int x=0,y=0;
+        for(int c:commands){
+            if(c==-1){
+                dir=(dir+1)%4;
+            }
+            else if(c==-2){
+                dir=(dir+3)%4;
+            }
+            else{
+                while(c-->0){
+                    int tx=x+directions[dir],ty=y+directions[dir+1];
+                    if(set.contains(tx*60010+ty)){
+                        break;
+                    }
+                    x=tx;
+                    y=ty;
+                    ans=Math.max(ans,x*x+y*y);
+                }
+            }
+        }
+        return ans;
+    }
+}
