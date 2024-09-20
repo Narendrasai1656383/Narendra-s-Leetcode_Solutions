@@ -1,0 +1,36 @@
+class Solution {
+    public String shortestPalindrome(String s) {
+        if(s==null || s.length()==0){
+            return "";
+        }
+        StringBuilder sb=new StringBuilder(s);
+        String rev=sb.reverse().toString();
+        String com=s+"#"+rev;
+        int[] lps=buildLPS(com);
+        int lpp=lps[com.length()-1];
+        String npp=rev.substring(0,s.length()-lpp);
+        return npp+s;
+    }
+    private int[] buildLPS(String str){
+        int[] lps=new int[str.length()];
+        int len=0;
+        int i=1;
+        while(i<str.length()){
+            if(str.charAt(i)==str.charAt(len)){
+                len++;
+                lps[i]=len;
+                i++;
+            }
+            else{
+                if(len!=0){
+                    len=lps[len-1];
+                }
+                else{
+                    lps[i]=0;
+                    i++;
+                }
+            }
+        }
+        return lps;
+    }
+}
