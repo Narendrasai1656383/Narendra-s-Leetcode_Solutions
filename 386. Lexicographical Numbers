@@ -1,0 +1,18 @@
+class Solution {
+    List<Integer> l=new ArrayList<>();
+    public List<Integer> lexicalOrder(int n) {
+        lo(1,n);
+        return l;
+    }
+    public void lo(int i,int n){
+        if(i>n){
+            return;
+        }
+        l.add(i);
+        lo(i*10,n);
+        if(++i%10==0){
+            return;
+        }
+        lo(i,n);
+    }
+}
