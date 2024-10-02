@@ -1,0 +1,17 @@
+class Solution {
+    public int[] arrayRankTransform(int[] arr) {
+        int[] rar=Arrays.copyOf(arr,arr.length);
+        Arrays.sort(rar);
+        int rank=1;
+        Map<Integer,Integer> map=new HashMap<>();
+        for(int num:rar){
+            if(!map.containsKey(num)){
+                map.put(num,rank++);
+            }
+        }
+        for(int i=0;i<arr.length;i++){
+            rar[i]=map.get(arr[i]);
+        }
+        return rar;
+    }
+}
