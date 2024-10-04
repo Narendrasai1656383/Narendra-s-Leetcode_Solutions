@@ -1,0 +1,14 @@
+class Solution {
+    public long dividePlayers(int[] skill) {
+        Arrays.sort(skill);
+        int chemistry=skill[0]+skill[skill.length-1];
+        long sumOfChemistry=0;
+        for(int i=0;i<skill.length/2;i++){
+            if(chemistry!=(skill[i]+skill[skill.length-i-1])){
+                return -1;
+            }
+            sumOfChemistry+=(skill[i]*skill[skill.length-i-1]);
+        }
+        return sumOfChemistry;
+    }
+}
