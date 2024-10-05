@@ -1,0 +1,42 @@
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        if(s1.length()>s2.length()){
+            return false;
+        }
+        if(s1.length()==0){
+            return true;
+        }
+        int[] arr1=new int[26];
+        int[] arr2=new int[26];
+        for(int i=0;i<s1.length();i++){
+            arr1[s1.charAt(i)-'a']++;
+            arr2[s2.charAt(i)-'a']++;
+        }
+        int freq=0;
+        for(int i=0;i<26;i++){
+            if(arr1[i]==arr2[i]){
+                freq++;
+            }
+        }
+        for(int i=0;i<s2.length()-s1.length();i++){
+            if(freq==26){
+                return true;
+            }
+            arr2[s2.charAt(i+s1.length())-'a']++;
+            if(arr1[s2.charAt(i+s1.length())-'a']==arr2[s2.charAt(i+s1.length())-'a']){
+                freq++;
+            }
+            else if(arr1[s2.charAt(i+s1.length())-'a']+1==arr2[s2.charAt(i+s1.length())-'a']){
+                freq--;
+            }
+            arr2[s2.charAt(i)-'a']--;
+            if(arr1[s2.charAt(i)-'a']==arr2[s2.charAt(i)-'a']){
+                freq++;
+            }
+            else  if(arr1[s2.charAt(i)-'a']-1==arr2[s2.charAt(i)-'a']){
+                freq--;
+            }
+        }
+        return freq==26;
+    }
+}
