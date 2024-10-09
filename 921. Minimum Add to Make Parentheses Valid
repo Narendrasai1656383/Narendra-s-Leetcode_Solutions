@@ -1,0 +1,19 @@
+class Solution {
+    public int minAddToMakeValid(String s) {
+        int openc=0,closec=0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='('){
+                openc++;
+            }
+            else{
+                if(openc>0){
+                    openc--;
+                }
+                else{
+                    closec++;
+                }
+            }
+        }
+        return openc+closec;
+    }
+}
