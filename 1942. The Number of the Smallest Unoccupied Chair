@@ -1,0 +1,37 @@
+class Solution {
+    public int smallestChair(int[][] times, int targetFriend) {
+        HashMap<Integer, ArrayList<Integer>> hm = new HashMap<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        int[] marked = times[targetFriend];
+        Arrays.sort(times, (a, b) -> a[0] - b[0]);
+        for (int i = 0; i <= marked[0]; i++) {
+            pq.add(i);  
+        }
+        int j = 0;  
+        for (int i = 0; i <= times[times.length - 1][1]; i++) {
+            if (hm.containsKey(i)) {
+                ArrayList<Integer> chairs = hm.get(i);
+                for (int chair : chairs) {
+                    pq.add(chair);  
+                }
+                hm.remove(i);  
+            }
+            while (j < times.length && i == times[j][0]) {
+                if (Arrays.equals(times[j], marked)) {
+                    return pq.peek();  
+                }
+                int chair = pq.poll(); 
+                int leaveTime = times[j][1];
+                if (hm.containsKey(leaveTime)) {
+                    hm.get(leaveTime).add(chair); 
+                } else {
+                    ArrayList<Integer> newList = new ArrayList<>();
+                    newList.add(chair);
+                    hm.put(leaveTime, newList); 
+                }
+                j++;  
+            }
+        }
+        return -1;
+    }
+}
