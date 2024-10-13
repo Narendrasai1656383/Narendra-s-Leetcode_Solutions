@@ -1,0 +1,26 @@
+class Solution {
+    public int[] smallestRange(List<List<Integer>> nums) {
+        int[] res=new int[2];
+        PriorityQueue<List<Integer>> pq=new PriorityQueue<>((a,b)->a.get(0)-b.get(0));
+        int dif=Integer.MAX_VALUE,max=Integer.MIN_VALUE;
+        for(List<Integer> l:nums){
+            pq.add(l);
+            max=Math.max(l.get(0),max);
+        }
+        while(true){
+            List<Integer> min=pq.remove();
+            int num=min.remove(0);
+            if(dif>max-num){
+                res[0]=num;
+                res[1]=max;
+                dif=res[1]-res[0];
+            }
+            if(min.isEmpty()){
+                break;
+            }
+            max=Math.max(max,min.get(0));
+            pq.add(min);
+        }
+        return res;
+    }
+}
