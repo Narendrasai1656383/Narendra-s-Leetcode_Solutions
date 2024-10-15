@@ -1,0 +1,25 @@
+class Solution {
+    public long minimumSteps(String s) {
+        long swapsRequired=0;
+        long zeros=0;
+        for(int i=s.length()-1;i>=0;){
+            if(s.charAt(i)=='1'){
+                i--;
+                continue;
+            }
+            else{
+                while(i>=0 && s.charAt(i)=='0'){
+                    zeros++;
+                    i--;
+                }
+                long ones=0;
+                while(i>=0 && s.charAt(i)=='1'){
+                    ones++;
+                    i--;
+                }
+                swapsRequired+=(zeros*ones);
+            }
+        }
+        return swapsRequired;
+    }
+}
