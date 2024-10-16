@@ -1,0 +1,32 @@
+class Solution {
+    public String longestDiverseString(int a, int b, int c) {
+        int curA=0,curB=0,curC=0;
+        int maxlen=a+b+c,i=0;
+        StringBuilder sb=new StringBuilder();
+        while(i<maxlen){
+            if(curA!=2 && a>=b && a>=c || a>0 && (curB==2 || curC==2)){
+                sb.append('a');
+                curA++;
+                curB=0;
+                curC=0;
+                a--;
+            }
+            else if(curB!=2 && b>=a && b>=c || b>0 && (curA==2 || curC==2)){
+                sb.append('b');
+                curB++;
+                curA=0;
+                curC=0;
+                b--;
+            }
+            else if(curC!=2 && c>=a && c>=b || c>0 && (curA==2 || curB==2)){
+                sb.append('c');
+                curC++;
+                curA=0;
+                curB=0;
+                c--;
+            }
+            i++;
+        }
+        return sb.toString();
+    }
+}
