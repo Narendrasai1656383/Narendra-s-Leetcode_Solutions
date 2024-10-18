@@ -1,0 +1,19 @@
+class Solution {
+    int count=0;
+    public int countMaxOrSubsets(int[] nums) {
+        int maxOr=0;
+        for(int num:nums){
+            maxOr |=num;
+        }
+        backTrack(nums,0,0,maxOr);
+        return count;
+    }
+    private void backTrack(int[] nums,int i,int curOr,int maxOr){
+        if(curOr==maxOr){
+            count++;
+        }
+        for(int j=i;j<nums.length;j++){
+            backTrack(nums,j+1,curOr | nums[j],maxOr);
+        }
+    }
+}
