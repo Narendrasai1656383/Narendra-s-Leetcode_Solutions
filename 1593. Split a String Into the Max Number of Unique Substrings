@@ -1,0 +1,21 @@
+class Solution {
+    public int maxUniqueSplit(String s) {
+        Set<String> set=new HashSet<>();
+        return backTrack(set,s,0);
+    }
+    private int backTrack(Set<String> set,String s,int index){
+        if(index==s.length()){
+            return 0;
+        }
+        int unSubStr=0;
+        for(int i=index+1;i<=s.length();i++){
+            String subStr=s.substring(index,i);
+            if(!set.contains(subStr)){
+                set.add(subStr);
+                unSubStr=Math.max(unSubStr,1+backTrack(set,s,i));
+                set.remove(subStr);
+            }
+        }
+        return unSubStr;
+    }
+}
