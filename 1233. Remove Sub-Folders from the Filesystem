@@ -1,0 +1,14 @@
+class Solution {
+    public List<String> removeSubfolders(String[] folder) {
+        Arrays.sort(folder);
+        List<String> l=new ArrayList<>();
+        l.add(folder[0]);
+        for(int i=1;i<folder.length;i++){
+            String recFol=l.get(l.size()-1)+"/";
+            if(!folder[i].startsWith(recFol)){
+                l.add(folder[i]);
+            }
+        }
+        return l;
+    }
+}
