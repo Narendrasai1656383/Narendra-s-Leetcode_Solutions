@@ -1,0 +1,20 @@
+class Solution {
+    public String makeFancyString(String s) {
+        StringBuilder sb=new StringBuilder();
+        char ch=s.charAt(0);
+        int count=1;
+        sb.append(ch);
+        for(int i=1;i<s.length();i++){
+            if(ch==s.charAt(i) && count<2){
+                sb.append(ch);
+                count++;
+            }
+            else if(ch!=s.charAt(i)){
+                ch=s.charAt(i);
+                sb.append(ch);
+                count=1;
+            }
+        }
+        return sb.toString();
+    }
+}
