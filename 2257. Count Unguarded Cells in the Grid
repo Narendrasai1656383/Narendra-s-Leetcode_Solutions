@@ -1,0 +1,65 @@
+class Solution {
+    public int countUnguarded(int m, int n, int[][] guards, int[][] walls) {
+        int[][] arr=new int[m][n];
+        for(int[] ar:arr){
+            Arrays.fill(ar,0);
+        }
+        int count=0;
+        for(int[] ar:walls){
+            arr[ar[0]][ar[1]]=9;
+            count++;
+        }
+        for(int[] ar:guards){
+            arr[ar[0]][ar[1]]=2;
+            count++;
+        }
+        for(int[] ar:guards){
+            int r=ar[0],c=ar[1];
+            for(int i=r+1;i<m;i++){
+                if(arr[i][c]!=2 && arr[i][c]!=9){
+                    if(arr[i][c]!=1){
+                        count++;
+                    }
+                    arr[i][c]=1;
+                }
+                else{
+                    break;
+                }
+            }
+            for(int i=r-1;i>=0;i--){
+                if(arr[i][c]!=2 && arr[i][c]!=9){
+                    if(arr[i][c]!=1){
+                        count++;
+                    }
+                    arr[i][c]=1;
+                }
+                else{
+                    break;
+                }
+            }
+            for(int i=c+1;i<n;i++){
+                if(arr[r][i]!=2 && arr[r][i]!=9){
+                    if(arr[r][i]!=1){
+                        count++;
+                    }
+                    arr[r][i]=1;
+                }
+                else{
+                    break;
+                }
+            }
+            for(int i=c-1;i>=0;i--){
+                if(arr[r][i]!=2 && arr[r][i]!=9){
+                    if(arr[r][i]!=1){
+                        count++;
+                    }
+                    arr[r][i]=1;
+                }
+                else{
+                    break;
+                }
+            }
+        }
+        return (m*n)-count;
+    }
+}
