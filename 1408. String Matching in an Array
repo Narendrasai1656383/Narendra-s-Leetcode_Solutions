@@ -1,0 +1,23 @@
+class Solution {
+    public List<String> stringMatching(String[] words) {
+        Arrays.sort(words,(a,b)->a.length()-b.length());
+        System.out.println(Arrays.toString(words));
+        List<String> lis=new ArrayList<>();
+        int l=0,r=words.length-1;
+        while(l<words.length-1){
+            if(l==r){
+                l++;
+                r=words.length-1;
+            }
+            else if(words[r].contains(words[l])){
+                lis.add(words[l]);
+                l++;
+                r=words.length-1;
+            }
+            else{
+                r--;
+            }
+        }
+        return lis;
+    }
+}
