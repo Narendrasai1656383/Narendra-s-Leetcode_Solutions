@@ -1,0 +1,21 @@
+class Solution {
+    public long gridGame(int[][] grid) {
+        long[][] grid1=new long[grid.length][grid[0].length];
+        grid1[0][0]=grid[0][0];
+        grid1[1][grid[0].length-1]=grid[1][grid[0].length-1];
+        for(int i=1;i<grid1[0].length;i++){
+            grid1[0][i]=grid1[0][i-1]+grid[0][i];
+            grid1[1][grid1[0].length-1-i]=grid1[1][grid1[0].length-i]+grid[1][grid1[0].length-1-i];
+        }
+        long r1max=grid1[0][grid1[0].length-1];
+        long r2max=grid1[1][0];
+        long robo2=Long.MAX_VALUE;
+        for(int i=0;i<grid1[0].length;i++){
+            long cur_robo2=Math.max(r1max-grid1[0][i],r2max-grid1[1][i]);
+            if(cur_robo2<robo2){
+                robo2=cur_robo2;
+            }
+        }
+        return robo2;
+    }
+}
