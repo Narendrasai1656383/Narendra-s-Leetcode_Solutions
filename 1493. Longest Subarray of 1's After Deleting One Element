@@ -1,0 +1,32 @@
+class Solution {
+    public int longestSubarray(int[] nums) {
+        boolean isz=false;
+        int count=0,z=0,max=0;
+        int j=0;
+        for(int i=0;i<nums.length && j<nums.length;){
+            while(i<nums.length && z>0){
+                if(nums[i]==0){
+                    z--;
+                    i++;
+                }
+                else{
+                    count--;
+                    i++;
+                }
+            }
+            while(j<nums.length && (z<1 || nums[j]==1)){
+                if(nums[j]==0){
+                    isz=true;
+                    z++;
+                    j++;
+                }
+                else{
+                    count++;
+                    j++;
+                }
+            }
+            max=Math.max(max,count);
+        }
+        return !isz?max-1:max;
+    }
+}
