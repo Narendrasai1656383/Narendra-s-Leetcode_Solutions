@@ -1,0 +1,20 @@
+class Solution {
+    public int equalPairs(int[][] grid) {
+        int count=0;
+        int i=0,j=0,k=0;
+        for(i=0;i<grid.length;i++){
+            for(j=0;j<grid.length;j++){
+                for(k=0;k<grid.length;k++){
+                    if(grid[i][k]!=grid[k][j]){
+                        break;
+                    }
+                }
+                if(k==grid.length){
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+}
