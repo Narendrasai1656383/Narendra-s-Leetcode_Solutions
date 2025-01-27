@@ -1,0 +1,30 @@
+class Solution {
+    public List<Boolean> checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {
+        List<Boolean> answer=new ArrayList<>();
+        Map<Integer,List<Integer>> map=new HashMap<>();
+        for(int i=0;i<numCourses;i++){
+            map.put(i,new ArrayList<>());
+        }
+        for(int[] arr:prerequisites){
+            map.get(arr[0]).add(arr[1]);
+        }
+        for(int[] arr:queries){
+            boolean[] isVisited=new boolean[numCourses];
+            answer.add(isPrerequisite(map,isVisited,arr[0],arr[1]));
+        }
+        return answer;
+    }
+    private boolean isPrerequisite(Map<Integer,List<Integer>> map,boolean[] isVisited,int i,int j){
+        isVisited[i]=true;
+        if(i==j){
+            return true;
+        }
+        boolean answer=false;
+        for(int adj:map.get(i)){
+            if(!isVisited[adj]){
+                answer=answer || isPrerequisite(map,isVisited,adj,j);
+            }
+        }
+        return answer;
+    }
+}
