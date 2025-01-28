@@ -1,0 +1,30 @@
+class Solution {
+    int[] r=new int[]{0,0,-1,1};
+    int[] c=new int[]{-1,1,0,0};
+    public int findMaxFish(int[][] grid) {
+        int maxFish=0;
+        boolean[][] isVisited= new boolean[grid.length][grid[0].length];
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]!=0){
+                    maxFish=Math.max(maxFish,findFish(grid,i,j,isVisited));
+                }
+            }
+        }
+        return maxFish;
+    }
+    private int findFish(int[][] grid,int ri,int ci,boolean[][] isVisited){
+        if(ri<0 || ri>=grid.length || ci<0 || ci>=grid[0].length){
+            return 0;
+        }
+        if(isVisited[ri][ci] || grid[ri][ci]==0){
+            return 0;
+        }
+        isVisited[ri][ci]=true;
+        int fish=grid[ri][ci];
+        for(int i=0;i<4;i++){
+            fish+=findFish(grid,ri+r[i],ci+c[i],isVisited);
+        }
+        return fish;
+    }
+}
