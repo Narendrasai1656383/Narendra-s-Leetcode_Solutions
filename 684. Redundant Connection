@@ -1,0 +1,29 @@
+class Solution {
+    public int[] findRedundantConnection(int[][] edges) {
+        Map<Integer,List<Integer>> map=new HashMap<>();
+        for(int i=1;i<=edges.length;i++){
+            map.put(i,new ArrayList<>());
+        }
+        for(int[] edge:edges){
+            boolean isVisited[]=new boolean[edges.length];
+            if(isConnected(edge[0],edge[1],map,isVisited)){
+                return edge;
+            }
+            map.get(edge[0]).add(edge[1]);
+            map.get(edge[1]).add(edge[0]);
+        }
+        return new int[]{};
+    }
+    private boolean isConnected(int from,int to,Map<Integer,List<Integer>> map,boolean isVisited[]){
+        if(from==to){
+            return true;
+        }
+        isVisited[from-1]=true;
+        boolean found=false;
+        for(int num:map.get(from)){
+            if(!isVisited[num-1])
+            found=found || isConnected(num,to,map,isVisited);
+        }
+        return found;
+    }
+}
