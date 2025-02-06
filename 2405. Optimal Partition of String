@@ -1,0 +1,17 @@
+class Solution {
+    public int partitionString(String s) {
+        int count=0;
+        List<Character> l=new ArrayList<>();
+        for(char ch:s.toCharArray()){
+            if(l.contains(ch)){
+                count++;
+                l.clear();
+            }
+            l.add(ch);
+        }
+        if(!l.isEmpty()){
+            count++;
+        }
+        return count;
+    }
+}
