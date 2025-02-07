@@ -1,0 +1,19 @@
+class Solution {
+    public int[] queryResults(int limit, int[][] queries) {
+        Map<Integer,Integer> colmap=new HashMap<>();
+        int[] discol=new int[queries.length];
+        Map<Integer,Integer> ballmap=new HashMap<>();
+        for(int i=0;i<queries.length;i++){
+            if(ballmap.containsKey(queries[i][0])){
+                colmap.put(ballmap.get(queries[i][0]),colmap.get(ballmap.get(queries[i][0]))-1);
+                if(colmap.get(ballmap.get(queries[i][0]))==0){
+                    colmap.remove(ballmap.get(queries[i][0]));
+                }
+            }
+            ballmap.put(queries[i][0],queries[i][1]);
+            colmap.put(queries[i][1],colmap.getOrDefault(queries[i][1],0)+1);
+            discol[i]=colmap.size();
+        } 
+        return discol;
+    }
+}
