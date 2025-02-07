@@ -1,0 +1,48 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+    
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+class Solution {
+    public Node connect(Node root) {
+        List<List<Node>> l=new ArrayList<>();
+        level(root,1,l);
+        for(List<Node> li:l){
+            for(int i=0;i<li.size()-1;i++){
+                li.get(i).next=li.get(i+1);
+            }
+            li.get(li.size()-1).next=null;
+        }
+        return root;
+    }
+    private void level(Node root,int level,List<List<Node>> l){
+        if(root==null){
+            return;
+        }
+        if(l.size()<level){
+            l.add(new ArrayList<>());
+        }
+        l.get(level-1).add(root);
+        level(root.left,level+1,l);
+        level(root.right,level+1,l);
+        return;
+    }
+}
