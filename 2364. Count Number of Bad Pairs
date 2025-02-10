@@ -1,0 +1,11 @@
+class Solution {
+    public long countBadPairs(int[] nums) {
+        long count=0;
+        Map<Integer,Integer> map=new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            count+=i-map.getOrDefault(i-nums[i],0);
+            map.put(i-nums[i],map.getOrDefault(i-nums[i],0)+1);
+        }
+        return count;
+    }
+}
