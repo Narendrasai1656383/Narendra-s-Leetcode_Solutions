@@ -1,0 +1,9 @@
+class Solution {
+    public int countDigitOne(int n) {
+        int count=0;
+        for(int i=1;i<=n;i*=10){
+            count+=(n/(i*10))*i+Math.min(Math.max(n%(i*10)-i+1,0),i);
+        }
+        return count;
+    }
+}
