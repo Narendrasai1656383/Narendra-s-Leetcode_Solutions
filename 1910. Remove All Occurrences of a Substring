@@ -6,3 +6,34 @@ class Solution {
         return s;
     }
 }
+
+              OOOOOOOOOOOOOOOORRRRRRRRRRRRRRRRR
+
+class Solution {
+    public String removeOccurrences(String s, String part) {
+        Stack<Character> st1=new Stack<>();
+        Stack<Character> st2=new Stack<>();
+        for(char ch:s.toCharArray()){
+            st1.push(ch);
+            if(ch==part.charAt(part.length()-1) && st1.size()>=part.length()){
+                int i=part.length()-1;
+                while(i>=0 && st1.peek()==part.charAt(i--)){
+                    st2.push(st1.pop());
+                }
+                if(st2.size()==part.length()){
+                    st2.clear();
+                }
+                else{
+                    while(!st2.isEmpty()){
+                        st1.push(st2.pop());
+                    }
+                }
+            }
+        }
+        StringBuilder sb=new StringBuilder();
+        while(!st1.isEmpty()){
+            sb.insert(0,Character.toString(st1.pop()));
+        }
+        return sb.toString();
+    }
+}
