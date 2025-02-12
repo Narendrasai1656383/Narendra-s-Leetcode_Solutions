@@ -1,0 +1,30 @@
+class Solution {
+    int count=0;
+    public int totalNQueens(int n) {
+        int[] col=new int[n];
+        int[] ldiag=new int[2*n-1];
+        int[] rdiag=new int[2*n-1];    
+        System.out.println(Arrays.toString(col));
+        queens(col,ldiag,rdiag,n,0);
+        return count;
+    }
+    private void queens(int[] col,int[] ldiag,int[] rdiag,int n,int row){
+        if(row==n){
+            count++;
+            return;
+        }
+        for(int i=0;i<n;i++){
+            if(ldiag[row-i+n-1]!=1 && rdiag[row+i]!=1 && col[i]!=1){
+                col[i]=1;
+                ldiag[row-i+n-1]=1;
+                rdiag[row+i]=1;
+                System.out.println(Arrays.toString(col));
+                queens(col,ldiag,rdiag,n,row+1);
+                col[i]=0;
+                ldiag[row-i+n-1]=0;
+                rdiag[row+i]=0;
+            }
+        }
+        return;
+    }
+}
