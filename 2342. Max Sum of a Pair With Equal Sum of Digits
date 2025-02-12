@@ -1,0 +1,29 @@
+class Solution {
+    public int maximumSum(int[] nums) {
+        Map<Integer,PriorityQueue<Integer>> map=new HashMap<>();
+        for(int num:nums){
+            int sum=findSum(num);
+            if(!map.containsKey(sum)){
+                map.put(sum,new PriorityQueue<Integer>((a,b)-> b-a));
+            }
+            map.get(sum).add(num);
+        }
+        int max=-1;
+        for(PriorityQueue<Integer> pq:map.values()){
+            if(pq.size()>=2){
+                int sum=pq.poll();
+                sum+=pq.poll();
+                max=Math.max(sum,max);
+            }
+        }
+        return max;
+    }
+    private int findSum(int num){
+        int sum=0;
+        while(num>0){
+            sum+=num%10;
+            num/=10;
+        }
+        return sum;
+    }
+}
