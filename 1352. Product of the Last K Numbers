@@ -1,0 +1,34 @@
+class ProductOfNumbers {
+    List<Integer> l=new ArrayList<>();
+    int prod=0;
+    public ProductOfNumbers() {
+        this.l.add(1);
+        this.prod=0;
+    }
+    
+    public void add(int num) {
+       if(num==0){
+        this.l=new ArrayList<>();
+        this.l.add(1);
+        this.prod=0;
+       }
+       else{
+        this.l.add(this.l.get(prod)*num);
+        this.prod++;
+       }
+    }
+    
+    public int getProduct(int k) {
+       if(k>this.prod){
+        return 0;
+       }
+       return this.l.get(this.prod)/this.l.get(this.prod-k);
+    }
+}
+
+/**
+ * Your ProductOfNumbers object will be instantiated and called as such:
+ * ProductOfNumbers obj = new ProductOfNumbers();
+ * obj.add(num);
+ * int param_2 = obj.getProduct(k);
+ */
