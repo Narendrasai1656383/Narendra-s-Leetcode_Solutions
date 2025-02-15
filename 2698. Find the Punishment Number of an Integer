@@ -1,0 +1,35 @@
+class Solution {
+    public int punishmentNumber(int n) {
+        if(n<9){
+            return 1;
+        }
+        int sum=1;
+        for(int i=9;i<=n;i++){
+            if(good(i,i*i,0)){
+                System.out.println(i);
+                sum+=i*i;
+            }
+        }
+        return sum;
+    }
+    private boolean good(int num,int sqr,int sum){
+        if(num==sum && sqr==0){
+            return true;
+        }
+        if(sqr==0){
+            return false;
+        }
+        boolean isGood=false;
+        int i=1;
+        for(;sqr>0 && i>0;){
+            i*=10;
+            sum+=sqr%i;
+            isGood=good(num,sqr/i,sum);
+            sum-=sqr%i;
+            if(isGood){
+                return true;
+            }
+        }
+        return false;
+    }
+}
