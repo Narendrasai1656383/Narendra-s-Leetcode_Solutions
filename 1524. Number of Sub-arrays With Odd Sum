@@ -1,0 +1,11 @@
+class Solution {
+    public int numOfSubarrays(int[] arr) {
+        long count=0,sum=0;
+        for(int num:arr){
+            sum+=num;
+            count+=sum%2;
+        }
+        count+=(arr.length-count)*count;
+        return (int)(count%(1000000007));
+    }
+}
