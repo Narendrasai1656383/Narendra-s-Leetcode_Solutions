@@ -1,0 +1,29 @@
+class Solution {
+    public int[] pivotArray(int[] nums, int pivot) {
+       List<Integer> l=new ArrayList<>();
+       List<Integer> g=new ArrayList<>();
+       int p=0;
+       for(int num:nums){
+        if(num==pivot){
+            p++;
+        }
+        else if(num>pivot){
+            g.add(num);
+        }
+        else{
+            l.add(num);
+        }
+       }
+       int i=0;
+       for(int num:l){
+        nums[i++]=num;
+       }
+       while(p-->0){
+        nums[i++]=pivot;
+       }
+       for(int num:g){
+        nums[i++]=num;
+       }
+       return nums;
+    }
+}
