@@ -1,0 +1,24 @@
+class Solution {
+    public boolean checkPowersOfThree(int n) {
+        int x=(int)(Math.log(n)/Math.log(3));
+        if((Math.pow(3,x)*2)<n){
+            return false;
+        }
+        return backTrack(n,0,x);
+    }
+    private boolean backTrack(int n, int sum, int x){
+        if(sum==n){
+            return true;
+        }
+        boolean check=false;
+        for(int i=x;i>=0;i--){
+            sum+=Math.pow(3,i);
+            check = check || backTrack(n,sum,i-1);
+            if(check){
+                return true;
+            }
+            sum-=Math.pow(3,i);
+        }
+        return check;
+    }
+}
