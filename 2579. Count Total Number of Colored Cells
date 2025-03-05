@@ -1,0 +1,11 @@
+class Solution {
+    public long coloredCells(int n) {
+        long coloredCellsCount=1;
+        long cellsColoredPerMin=0;
+        while(n-->1){
+            cellsColoredPerMin+=4;
+            coloredCellsCount+=cellsColoredPerMin;
+        }
+        return coloredCellsCount;
+    }
+}
