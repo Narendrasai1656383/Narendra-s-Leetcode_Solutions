@@ -1,0 +1,42 @@
+class Solution {
+    public int[] findMissingAndRepeatedValues(int[][] grid) {
+        long sum=0;
+        int[] arr=new int[2];
+        List<Integer> l=new ArrayList<>();
+        for(int[] gri:grid){
+            for(int gr:gri){
+                sum+=gr;
+                if(l.contains(gr)){
+                    arr[0]=gr;
+                    continue;
+                }
+                l.add(gr);
+            }
+        }
+        long actualSum=(grid.length*grid.length*((grid.length*grid.length)+1))/2;
+        arr[1]=(int)(actualSum+arr[0]-sum);
+        return arr;
+    }
+}
+
+          OOOOOOOOOOOOOOOOOOOOOOOOORRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+
+class Solution {
+    public int[] findMissingAndRepeatedValues(int[][] grid) {
+        long sum=0;
+        int[] arr=new int[2];
+        int[] nums=new int[grid.length*grid.length+1];
+        for(int[] gri:grid){
+            for(int gr:gri){
+                sum+=gr;
+                nums[gr]++;
+                if(nums[gr]==2){
+                    arr[0]=gr;
+                }
+            }
+        }
+        long actualSum=(grid.length*grid.length*((grid.length*grid.length)+1))/2;
+        arr[1]=(int)(actualSum+arr[0]-sum);
+        return arr;
+    }
+}
