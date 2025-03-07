@@ -5,6 +5,11 @@ class Solution {
             if(isPrime(i)){
                 primeNum.add(i);
             }
+            if(primeNum.size()>=2){
+                if((primeNum.get(primeNum.size()-1)-primeNum.get(primeNum.size()-2))<=2){
+                    return new int[]{primeNum.get(primeNum.size()-2),primeNum.get(primeNum.size()-1)};
+                }
+            }
         }
         int minDiff=Integer.MAX_VALUE;
         int[] pair=new int[]{-1,-1};
@@ -13,6 +18,9 @@ class Solution {
                 minDiff=primeNum.get(i+1)-primeNum.get(i);
                 pair[0]=primeNum.get(i);
                 pair[1]=primeNum.get(i+1);
+            }
+            if(minDiff<=2){
+                break;
             }
         }
         return pair;
