@@ -1,0 +1,20 @@
+class Solution {
+    public int numberOfSubstrings(String s) {
+        int count=0;
+        int l=0;
+        Map<Character,Integer> map=new HashMap<>();
+        for(int r=0;r<s.length();r++){
+            char ch=s.charAt(r);
+            map.put(ch,map.getOrDefault(ch,0)+1);
+            while(map.size()==3){
+                char lch=s.charAt(l++);
+                count+=s.length()-r;
+                map.put(lch,map.get(lch)-1);
+                if(map.get(lch)==0){
+                    map.remove(lch);
+                }
+            }
+        }
+        return count;
+    }
+}
