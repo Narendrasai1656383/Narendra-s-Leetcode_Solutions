@@ -1,0 +1,36 @@
+class Solution {
+    public List<String> findAllRecipes(String[] recipes, List<List<String>> ingredients, String[] supplies) {
+        Set<String> avail=new HashSet<>();
+        for(String s:supplies){
+            avail.add(s);
+        }
+        Queue<Integer> reciQu=new LinkedList<>();
+        for(int i=0;i<recipes.length;i++){
+            reciQu.offer(i);
+        }
+        List<String> availrec=new ArrayList<>();
+        int howManyRec=-1;
+        while(avail.size()>howManyRec){
+            howManyRec=avail.size();
+            int reciQuSize=reciQu.size();
+            while(reciQuSize-->0){
+                int reInd=reciQu.poll();
+                boolean flag=true;
+                for(String ing:ingredients.get(reInd)){
+                    if(!avail.contains(ing)){
+                        flag=false;
+                        break;
+                    }
+                }
+                if(!flag){
+                    reciQu.offer(reInd);
+                }
+                else{
+                    avail.add(recipes[reInd]);
+                    availrec.add(recipes[reInd]);
+                }
+            }
+        }
+        return availrec;
+    }
+}
