@@ -1,0 +1,23 @@
+class Solution {
+    public boolean checkValidCuts(int n, int[][] rectangles) {
+        if(possible(rectangles,0)){
+            return true;
+        }
+        return possible(rectangles,1);
+    }
+    private boolean possible(int[][] rect,int xORy){
+        int count=0;
+        Arrays.sort(rect,(a,b) -> a[xORy]-b[xORy]);
+        int endsLast=rect[0][xORy+2];
+        for(int i=1;i<rect.length;i++){
+            if(endsLast<=rect[i][xORy]){
+                count++;
+            }
+            endsLast=Math.max(endsLast,rect[i][xORy+2]);
+            if(count>=2){
+                break;
+            }
+        }
+        return count>=2;
+    }
+}
