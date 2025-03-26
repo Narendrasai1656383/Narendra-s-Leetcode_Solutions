@@ -1,0 +1,21 @@
+class Solution {
+    public int minOperations(int[][] grid, int x) {
+        int[] values=new int[grid.length*grid[0].length];
+        int count=0;
+        for(int[] gri:grid){
+            for(int gr:gri){
+                values[count++]=gr;
+            }
+        }
+        Arrays.sort(values);
+        count=0;
+        int target=values[values.length/2];
+        for(int value:values){
+            if(value%x!=target%x){
+                return -1;
+            }
+            count+=Math.abs(value-target)/x;
+        }
+        return count;
+    }
+}
