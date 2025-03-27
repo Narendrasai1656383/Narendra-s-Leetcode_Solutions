@@ -1,0 +1,24 @@
+class Solution {
+    public int minimumIndex(List<Integer> nums) {
+        Map<Integer,Integer> freqMap=new HashMap<>();
+        int freq=0;
+        int dominantEle=-1;
+        for(int num:nums){
+            freqMap.put(num,freqMap.getOrDefault(num,0)+1);
+            if(freqMap.get(num)>freq){
+                freq=freqMap.get(num);
+                dominantEle=num;
+            }
+        }
+        freq=0;
+        for(int i=0;i<nums.size();i++){
+            if(nums.get(i)==dominantEle){
+                freq++;
+            }
+            if(freq>((i+1)/2) && (freqMap.get(dominantEle)-freq)>(nums.size()-i-1)/2){
+                return i;
+            }
+        }
+        return -1;
+    }
+}
