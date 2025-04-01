@@ -1,0 +1,16 @@
+class Solution {
+    public long mostPoints(int[][] questions) {
+        long[] points=new long[questions.length];
+        return fill(0,points,questions);
+    }
+    public long fill(int i,long[] points,int[][] questions){
+        if(i>=questions.length){
+            return 0;
+        }
+        if(points[i]!=0){
+            return points[i];
+        }
+        points[i]=Math.max(questions[i][0]+fill(i+questions[i][1]+1,points,questions),fill(i+1,points,questions));
+        return points[i];
+    }
+}
