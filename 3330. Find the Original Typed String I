@@ -1,0 +1,12 @@
+class Solution {
+    public int possibleStringCount(String word) {
+        int posOrigStr=1;
+        int mulPressedKey=0;
+        for(int i=1;i<word.length();i++){
+            if(word.charAt(i)==word.charAt(i-1)){
+                mulPressedKey++;
+            }
+        }
+        return mulPressedKey+posOrigStr;
+    }
+}
