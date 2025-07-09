@@ -1,0 +1,24 @@
+class Solution {
+    public int maxFreeTime(int eventTime, int k, int[] startTime, int[] endTime) {
+        int[] breakTime=new int[startTime.length+1];
+        breakTime[0]=startTime[0];
+        for(int i=1;i<startTime.length;i++){
+            breakTime[i]=startTime[i]-endTime[i-1];
+        }
+        breakTime[breakTime.length-1]=eventTime-endTime[endTime.length-1];
+        int i=0,j=0;
+        int maxTime=0;
+        int cur=0;
+        while(i<breakTime.length && j<breakTime.length){
+            maxTime=Math.max(maxTime,cur);
+            if((j-i)<=k){
+                cur+=breakTime[j++];
+            }
+            else if((j-i)>k){
+                cur-=breakTime[i++];
+            }
+        }
+        maxTime=Math.max(maxTime,cur);
+        return maxTime;
+    }
+}
