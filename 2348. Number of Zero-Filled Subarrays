@@ -1,0 +1,16 @@
+class Solution {
+    public long zeroFilledSubarray(int[] nums) {
+        List<Integer> subarrayLengths=new ArrayList<>();
+        long subarrays=0;
+        int l=-1,r=0;
+        while(r<nums.length){
+            if(nums[r]!=0){
+                l=r;
+            }else{
+                subarrays+=r-l;
+            }
+            r++;
+        }
+        return subarrays;
+    }
+}
