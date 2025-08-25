@@ -1,0 +1,23 @@
+class Solution {
+    public int[] findDiagonalOrder(int[][] mat) {
+        int[] diagTrav=new int[mat.length*mat[0].length];
+        int k=0,i=0,j=0;
+        while(k<diagTrav.length){
+            while(i>=0 && j<mat[0].length){
+                diagTrav[k++]=mat[i][j];
+                i--;
+                j++;
+            }
+            i=j>=mat[0].length?i+2:i<=0?0:i;
+            j=j>=mat[0].length?mat[0].length-1:j;
+            while(i<mat.length && j>=0){
+                diagTrav[k++]=mat[i][j];
+                i++;
+                j--;
+            }
+            j=i>=mat.length?j+2:j<=0?0:j;
+            i=i>=mat.length?mat.length-1:i;
+        }
+        return diagTrav;
+    }
+}
