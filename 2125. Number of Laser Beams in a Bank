@@ -1,0 +1,15 @@
+class Solution {
+    public int numberOfBeams(String[] bank) {
+        int prevRow=0, total=0;
+        for(int i=0; i<bank.length;i++){
+            int curRow=0;
+            for(char ch:bank[i].toCharArray()){
+                curRow += ch - '0';
+            }
+            total += curRow*prevRow;
+            if(curRow!=0)
+            prevRow = curRow;
+        }
+        return total;
+    }
+}
