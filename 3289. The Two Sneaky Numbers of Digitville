@@ -1,0 +1,14 @@
+class Solution {
+    public int[] getSneakyNumbers(int[] nums) {
+        List<Integer> list = new ArrayList<>();
+        int[] digitville = new int[2];
+        int i=0;
+        for(int num : nums){
+            if(list.contains(num)){
+                digitville[i++] = num;
+            }
+            list.add(num);
+        }
+        return digitville;
+    }
+}
