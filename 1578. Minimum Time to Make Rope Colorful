@@ -1,0 +1,18 @@
+class Solution {
+    public int minCost(String colors, int[] neededTime) {
+        int minTimeToMakeRopeColourful = 0;
+        int curSum = neededTime[0], maxTime = neededTime[0];
+        for(int i = 1; i < neededTime.length; i++){
+            if(colors.charAt(i-1)==colors.charAt(i)){
+                curSum += neededTime[i];
+                maxTime = Math.max(maxTime,neededTime[i]);
+            }else{
+                minTimeToMakeRopeColourful += curSum-maxTime;
+                curSum = neededTime[i];
+                maxTime = neededTime[i];
+            }
+        }
+        minTimeToMakeRopeColourful += curSum-maxTime;
+        return minTimeToMakeRopeColourful;
+    }
+}
