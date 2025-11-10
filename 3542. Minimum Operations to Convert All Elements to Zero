@@ -1,0 +1,19 @@
+class Solution {
+    public int minOperations(int[] nums) {
+        List<Integer> list = new ArrayList<>();
+        int minOper = 0;
+        for(int num : nums){
+            while(!list.isEmpty() && list.get(list.size()-1) > num){
+                list.remove(list.size()-1);
+            }
+            if(num == 0){
+                continue;
+            }
+            if(list.isEmpty() || list.get(list.size()-1) < num){
+                minOper++;
+                list.add(num);
+            }
+        }
+        return minOper;
+    }
+}
