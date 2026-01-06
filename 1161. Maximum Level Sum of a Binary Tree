@@ -47,3 +47,54 @@ class Solution {
     return sum;
    }
 }
+
+
+
+
+
+____________________________OOOOOORRRRRR_______________________________
+
+
+
+
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int maxLevelSum(TreeNode root) {
+        List<Integer> levelSum = new ArrayList<>();
+        dfs(root,levelSum,0);
+        return IntStream.range(0, levelSum.size())
+        .boxed()
+        .max(Comparator.comparing(levelSum::get))
+        .orElse(-1)+1;
+    }
+    private void dfs(TreeNode root,List<Integer> levelSum, int level){
+        if(root==null){
+            return;
+        }
+        if(levelSum.size()<=level){
+            levelSum.add(root.val);
+        }else{
+            levelSum.set(level,levelSum.get(level)+root.val);
+        }
+        dfs(root.left,levelSum,level+1);
+        dfs(root.right,levelSum,level+1);
+    }
+}
