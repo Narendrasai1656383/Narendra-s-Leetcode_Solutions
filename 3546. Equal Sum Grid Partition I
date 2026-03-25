@@ -1,0 +1,34 @@
+class Solution {
+    public boolean canPartitionGrid(int[][] grid) {
+        int[] verticalSum = new int[grid[0].length];
+        int[] horizontalSum = new int[grid.length];
+        long totalSum = 0;
+        for(int i=0; i<grid.length; i++){
+            for(int j=0; j<grid[0].length; j++){
+                verticalSum[j] += grid[i][j];
+                horizontalSum[i] += grid[i][j];
+                totalSum += grid[i][j];
+            }
+        }
+        // System.out.println(totalSum);
+        // System.out.println(Arrays.toString(verticalSum));
+        // System.out.println(Arrays.toString(horizontalSum));
+        long temp = verticalSum[0];
+        for(int i=1; i<verticalSum.length; i++){
+            // System.out.println(temp);
+            // System.out.println(totalSum-temp);
+            if(temp == (totalSum-temp)){
+                return true;
+            }
+            temp += verticalSum[i];
+        }
+        temp = horizontalSum[0];
+        for(int i=1; i<horizontalSum.length; i++){
+            if(temp == (totalSum-temp)){
+                return true;
+            }
+            temp += horizontalSum[i];
+        }
+        return false;
+    }
+}
