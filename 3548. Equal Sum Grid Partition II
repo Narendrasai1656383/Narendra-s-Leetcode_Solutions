@@ -1,0 +1,71 @@
+class Solution {
+    public boolean canPartitionGrid(int[][] grid) {
+        long totalSum = 0;
+        for(int i=0; i<grid.length; i++){
+            for(int j=0; j<grid[0].length; j++){
+                totalSum +=grid[i][j];
+            }
+        }
+        long tempSum = 0;
+        Map<Integer,Integer> set = new HashMap<>();
+        for(int i=0; i<grid.length-1; i++){
+            for(int j=0; j<grid[0].length; j++){
+                tempSum +=grid[i][j];
+                set.merge(grid[i][j], 1, Integer::sum);
+            }
+            if(tempSum == (totalSum-tempSum)){
+                return true;
+            }
+            long needed = tempSum-(totalSum-tempSum);
+            if(needed > 0 && needed <= 100000 && (i==0 && set.containsKey((int)needed) && (grid[0][grid[0].length-1]==(int)needed || grid[0][0]==(int)needed || grid[0].length==2)) || (needed > 0 && needed <= 100000 && grid[0].length>1 && i!=0 && set.containsKey((int)needed)) || (needed > 0 && needed <= 100000 && i!=0 && set.containsKey((int)needed) && (grid[0][0]==(int)needed || (grid[0].length==1 && grid[i][0]==(int)needed)))){
+                return true;
+            }
+        }
+        tempSum = 0;
+        set = new HashMap<>();
+        for(int i=grid.length-1; i>0; i--){
+            for(int j=0; j<grid[0].length; j++){
+                tempSum +=grid[i][j];
+                set.merge(grid[i][j], 1, Integer::sum);
+            }
+            if(tempSum == (totalSum-tempSum)){
+                return true;
+            }
+            long needed = tempSum-(totalSum-tempSum);
+            if(needed > 0 && needed <= 100000 && (i==grid.length-1 && set.containsKey((int)needed) && (grid[grid.length-1][grid[0].length-1]==(int)needed || grid[grid.length-1][0]==(int)needed || grid[0].length==2)) || (needed > 0 && needed <= 100000 && grid[0].length>1 && i!=grid.length-1 && set.containsKey((int)needed)) || (needed > 0 && needed <= 100000 && i!=grid.length-1 && set.containsKey((int)needed) && (grid[grid.length-1][0]==(int)needed || (grid[0].length==1 && grid[i][0]==(int)needed)))){
+                return true;
+            }
+        }
+        tempSum = 0;
+        set = new HashMap<>();
+        for(int i=0; i<grid[0].length-1; i++){
+            for(int j=0; j<grid.length; j++){
+                tempSum += grid[j][i];
+                set.merge(grid[j][i], 1, Integer::sum);
+            }
+            if(tempSum == (totalSum-tempSum)){
+                return true;
+            }
+            long needed = tempSum-(totalSum-tempSum);
+            if(needed > 0 && needed <= 100000 && (i==0 && set.containsKey((int)needed) && (grid[0][0]==(int)needed || grid[grid.length-1][0]==(int)needed || grid.length==2)) || (needed > 0 && needed <= 100000 && grid.length>1 && i!=0 && set.containsKey((int)needed)) || (needed > 0 && needed <= 100000 && i!=0 && set.containsKey((int)needed) && (grid[0][0]==(int)needed || (grid.length==1 && grid[0][i]==(int)needed)))){
+                return true;
+            }
+        }
+        tempSum = 0;
+        set = new HashMap<>();
+        for(int i=grid[0].length-1; i>0; i--){
+            for(int j=0; j<grid.length; j++){
+                tempSum += grid[j][i];
+                set.merge(grid[j][i], 1, Integer::sum);
+            }
+            if(tempSum == (totalSum-tempSum)){
+                return true;
+            }
+            long needed = tempSum-(totalSum-tempSum);
+            if(needed > 0 && needed <= 100000 && (i==grid[0].length-1 && set.containsKey((int)needed) && (grid[0][grid[0].length-1]==(int)needed || grid[grid.length-1][grid[0].length-1]==(int)needed || grid.length==2)) || (needed > 0 && needed <= 100000 && grid.length>1 && i!=grid[0].length-1 && set.containsKey((int)needed)) || (needed > 0 && needed <= 100000 && i!=grid[0].length-1 && set.containsKey((int)needed) && (grid[0][grid[0].length-1]==(int)needed || (grid.length==1 && grid[0][i]==(int)needed)))){
+                return true;
+            }
+        }
+        return false;
+    }
+}
