@@ -1,0 +1,97 @@
+class Robot {
+
+    int width;
+    int height;
+    String curDir = "East";
+    String nextDir = "East";
+
+    int curX = 0, curY = 0;
+
+    public Robot(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+    
+    public void step(int num) {
+        int perimeter = 2 * (width - 1) + 2 * (height - 1);
+        if(num%perimeter == 0){
+            if(nextDir.equals("East") && curX == 0 && curY == 0){
+                curDir = "South";
+                nextDir = "East";
+            } else if(nextDir.equals("North") && curX == width-1 && curY == 0){
+                curDir = "East";
+                nextDir = "North";
+            } else if(nextDir.equals("West") && curX == width-1 && curY == height-1){
+                curDir = "North";
+                nextDir = "West";
+            } else if(nextDir.equals("South") && curX == 0 && curY == height-1){
+                curDir = "West";
+                nextDir = "South";
+            }
+        }
+        num = num % perimeter;
+        while (num > 0) {
+            if (nextDir.equals("East")) {
+                curDir = "East";
+                int canMove = width - 1 - curX;
+                if (num > canMove) {
+                    num -= canMove;
+                    curX = width - 1;
+                    nextDir = "North";
+                } else {
+                    curX += num;
+                    return;
+                }
+            } else if (nextDir.equals("North")) {
+                curDir = "North";
+                int canMove = height - 1 - curY;
+                if (num > canMove) {
+                    num -= canMove;
+                    curY = height - 1;
+                    nextDir = "West";
+                } else {
+                    curY += num;
+                    return;
+                }
+            } else if (nextDir.equals("West")) {
+                curDir = "West";
+                int canMove = curX; // distance to x=0
+                if (num > canMove) {
+                    num -= canMove;
+                    curX = 0;
+                    nextDir = "South";
+                } else {
+                    curX -= num;
+                    return;
+                }
+            } else if (nextDir.equals("South")) {
+                curDir = "South";
+                int canMove = curY; // distance to y=0
+                if (num > canMove) {
+                    num -= canMove;
+                    curY = 0;
+                    nextDir = "East";
+                } else {
+                    curY -= num;
+                    return;
+                }
+            }
+        }
+    }
+    
+    public int[] getPos() {
+        return new int[]{curX, curY};
+    }
+    
+    public String getDir() {
+        return curDir;
+    }
+}
+
+/**
+ * Your Robot object will be instantiated and called as such:
+ * Robot obj = new Robot(width, height);
+ * obj.step(num);
+ * int[] param_2 = obj.getPos();
+ * String param_3 = obj.getDir();
+ */
