@@ -1,0 +1,41 @@
+class Solution {
+    public char processStr(String s, long k) {
+        long len = 0l;
+        for(int i=0; i<s.length();i++){
+            char ch = s.charAt(i); 
+            if(ch == '*'){
+                if(len > 0){
+                    len--;
+                }
+            }else if(ch == '#'){
+                len += len;
+            }else if(ch == '%'){
+                continue;
+            }else{
+                len++;
+            }
+        }
+        if(k+1 > len){
+            return '.';
+        }
+        for(int i=s.length()-1; i>=0; i--){
+            char ch = s.charAt(i);
+            if(ch == '*'){
+                len++;
+            }else if(ch == '#'){
+                if(k+1 > (len+1)/2){
+                    k -= len/2;
+                }
+                len -= (len+1)/2; 
+            }else if(ch == '%'){
+                k = len-k-1;
+            }else{
+                if(k+1 == len){
+                    return ch;
+                }
+                len--;
+            }
+        }
+        return '.';
+    }
+}
