@@ -1,0 +1,20 @@
+class Solution {
+    public int maximumLength(int[] nums) {
+        HashMap<Long,Integer> map = new HashMap<>();
+        for(int num : nums){
+            map.put((long)num, map.getOrDefault((long)num,0) + 1);
+        }
+        int maxEle = (map.getOrDefault(1l,0) & 1) == 1 ? map.getOrDefault(1l,0) : map.getOrDefault(1l,0)-1;
+        map.remove(1L);
+        for(long num : map.keySet()){
+            int count = 0;
+            long cur = num;
+            while(map.containsKey(cur) && map.get(cur)>1){
+                count += 2;
+                cur *= cur;
+            }
+            maxEle = Math.max(maxEle, map.containsKey(cur) ? count+1 : count-1);
+        }  
+        return maxEle;
+    }
+}
