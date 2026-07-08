@@ -1,0 +1,30 @@
+class Solution {
+    private static final int MOD = 1000000007;
+    private static final long[] pow10 = new long[100001];
+    static{
+        pow10[0] = 1;
+        for(int i=1; i<100001; ++i){
+            pow10[i] = (pow10[i-1]*10)%MOD;
+        }
+    }
+    public int[] sumAndMultiply(String s, int[][] queries) {
+        int[] sum = new int[s.length()+1];
+        long[] x = new long[s.length()+1];
+        int[] cntNZ = new int[s.length()+1];
+        for(int i=0; i<s.length(); ++i){
+            int ch = s.charAt(i) - '0';
+            sum[i+1] = sum[i] + ch;
+            x[i+1] = ch > 0 ? (x[i]*10 + ch) % MOD : x[i];
+            cntNZ[i+1] = cntNZ[i] + (ch > 0 ? 1 : 0);
+        } 
+        int[] result = new int[queries.length];
+        for(int i=0; i<queries.length; i++){
+            int lp = queries[i][0];
+            int rp = queries[i][1]+1;
+            long xVal = (x[rp] - ((x[lp]*pow10[cntNZ[rp] - cntNZ[lp]]) % MOD) + MOD) % MOD;
+            long sumVal = sum[rp] - sum[lp];
+            result[i] = (int)((xVal * sumVal) % MOD);
+        }
+        return result;
+    }
+}
