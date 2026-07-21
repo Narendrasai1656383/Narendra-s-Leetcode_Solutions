@@ -1,0 +1,24 @@
+class Solution {
+    public int maxActiveSectionsAfterTrade(String s) {
+        int totalTrade = 0;
+        int maxTrade = 0;
+        int curZ = 0, prevZ = 0;
+        for(int i=0; i<s.length(); i++){
+            if(s.charAt(i) == '1'){
+                totalTrade++;
+                if(prevZ!=0 && curZ!=0){
+                    maxTrade = Math.max(maxTrade, curZ+prevZ);
+                }
+                if(curZ!=0){
+                    prevZ = curZ;
+                }
+                curZ = 0;
+            }else{
+                curZ++;
+            }
+        }
+        if(s.charAt(s.length()-1)=='0' && prevZ!=0 && curZ!=0)
+            maxTrade = Math.max(maxTrade, curZ+prevZ);
+        return totalTrade + maxTrade;
+    }
+}
