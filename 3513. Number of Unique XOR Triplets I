@@ -1,0 +1,12 @@
+class Solution {
+    public int uniqueXorTriplets(int[] nums) {
+        if(nums.length <= 2){
+            return nums.length;
+        }
+        int uniqueXors = 1;
+        while(uniqueXors <= nums.length){
+            uniqueXors <<= 1;
+        }
+        return uniqueXors;
+    }
+}
