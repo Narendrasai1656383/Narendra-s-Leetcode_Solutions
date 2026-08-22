@@ -15,3 +15,22 @@ class Solution {
         return (n % ((int)prod + sum))==0;
     }
 }
+
+
+
+---------------------------------------------------USING STREAMS-------------------------------------------------------
+
+
+
+class Solution {
+    public boolean checkDivisibility(int n) {
+        final long[] arr = {0,1};
+        boolean isdivis = Stream.iterate(n, num -> num > 0, num -> num/10).map(num -> num%10).peek(digit -> {
+            arr[0] += digit;
+            arr[1] *= digit;
+        }).allMatch(digit -> (arr[0] + arr[1]) <= n);
+        if(!isdivis)
+            return false;
+        return (n % ((arr[0] + arr[1])))==0;
+    }
+}
