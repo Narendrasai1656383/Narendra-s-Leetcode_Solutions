@@ -1,0 +1,15 @@
+class Solution {
+    public int stoneGameVIII(int[] stones) {
+        int[] preSum = new int[stones.length];
+        preSum[0] = stones[0];
+        for(int i=1; i<stones.length; i++){
+            preSum[i] = preSum[i-1] + stones[i];
+        }
+        int[] f = new int[stones.length];
+        f[stones.length-1] = preSum[stones.length-1];
+        for(int i=stones.length-2; i>=1; i--){
+            f[i] = Math.max(f[i+1], preSum[i] - f[i+1]);
+        }
+        return f[1];
+    }
+}
