@@ -10,3 +10,14 @@ class Solution {
         return cur;
     }
 }
+
+
+
+------------------------------------------------STREAMS------------------------------------------------------
+
+class Solution {
+    public int missingMultiple(int[] nums, int k) {
+      Set<Integer> set = Arrays.stream(nums).boxed().collect(Collectors.toSet());
+      return IntStream.iterate(k, cur -> cur+k).filter(cur -> !set.contains(cur)).findFirst().orElse(k);
+    }
+}
