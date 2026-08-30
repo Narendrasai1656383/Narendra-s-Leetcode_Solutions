@@ -1,0 +1,11 @@
+class Solution {
+    public int minimumDeletions(int[] nums) {
+        int minIndex = 0;
+        int maxIndex = 0;
+        for(int i=0; i<nums.length; i++){
+            minIndex = nums[i] < nums[minIndex] ? i : minIndex;
+            maxIndex = nums[i] > nums[maxIndex] ? i : maxIndex;
+        }
+        return Math.min(Math.max(minIndex, maxIndex) + 1, Math.min(nums.length - Math.min(minIndex, maxIndex), Math.min(minIndex + 1 + (nums.length - maxIndex), maxIndex + 1 + (nums.length - minIndex))));
+    }
+}
