@@ -9,3 +9,15 @@ class Solution {
         return Math.min(Math.max(minIndex, maxIndex) + 1, Math.min(nums.length - Math.min(minIndex, maxIndex), Math.min(minIndex + 1 + (nums.length - maxIndex), maxIndex + 1 + (nums.length - minIndex))));
     }
 }
+
+
+
+-------------------------------------------STREAMS-----------------------------------------------------------
+
+class Solution {
+    public int minimumDeletions(int[] nums) {
+        int minIndex = IntStream.range(0,nums.length).reduce((i,j) -> nums[i] > nums[j] ? j : i).orElse(0);
+        int maxIndex = IntStream.range(0,nums.length).reduce((i,j) -> nums[i] > nums[j] ? i : j).orElse(0);
+        return Math.min(Math.max(minIndex, maxIndex) + 1, Math.min(nums.length - Math.min(minIndex, maxIndex), Math.min(minIndex + 1 + (nums.length - maxIndex), maxIndex + 1 + (nums.length - minIndex))));
+    }
+}
