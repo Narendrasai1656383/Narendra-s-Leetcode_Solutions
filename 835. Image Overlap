@@ -1,0 +1,25 @@
+class Solution {
+    public int largestOverlap(int[][] img1, int[][] img2) {
+        int n = img1.length;
+        List<int[]> l1 = new ArrayList<>();
+        List<int[]> l2 = new ArrayList<>();
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                if(img1[i][j] == 1)
+                    l1.add(new int[]{i,j});
+                if(img2[i][j] == 1)
+                    l2.add(new int[]{i,j});
+            }
+        }
+        int maxOverlaps = 0;
+        int dp[][] = new int[2*n][2*n];
+        for(int[] arr1 : l1){
+            for(int[] arr2 : l2){
+                int x = arr1[0] - arr2[0] + n;
+                int y = arr1[1] - arr2[1] + n;
+                maxOverlaps = Math.max(maxOverlaps, ++dp[x][y]);
+            }
+        }
+        return maxOverlaps;
+    }
+}
