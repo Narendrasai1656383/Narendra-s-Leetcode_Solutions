@@ -1,0 +1,14 @@
+class Solution {
+    public String maxSumOfSquares(int num, int sum) {
+        StringBuilder sbr = new StringBuilder(sum >= 9 ? "9" : Integer.toString(sum));
+        sum -= sum >= 9 ? 9 : sum;
+        while(sum > 0){
+            sbr.append(sum >= 9 ? "9" : Integer.toString(sum));
+            sum -= sum >= 9 ? 9 : sum;
+        }   
+        while(sbr.length() < num){
+            sbr.append("0");
+        }     
+        return (sbr.length() > num || sbr.length() < num) ? "" : sbr.toString();
+    }
+}
